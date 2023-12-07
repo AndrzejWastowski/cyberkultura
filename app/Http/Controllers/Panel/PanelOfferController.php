@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-
 class PanelOfferController extends Controller
 {
 
@@ -45,78 +44,61 @@ class PanelOfferController extends Controller
         return view('panel.offers.list', compact('offers', 'pages'));
     }
 
-    public function add()
+    public function add(request $request)
     {
         $dataCarbon = Carbon::now();
 
         $pages = Page::all();
+        $category = OfferCategory::all();
         $offer = new Offer();
         $offer->id = 0;
-
+        if (isset($request->locale))
+        {
+            $offer->locale = $request->locale;
+        } else $offer->locale = 'pl';
+        $offer->category_id = 1;
+    
         //$offer->setRelation('photo', collect([new OfferPhoto()]));
         $offer->setRelation('photo', collect());
         $action = 'create';
-        return view('panel.offers.form', compact('offer', 'action', 'pages'));
+        return view('panel.offers.form', compact('offer', 'action', 'pages','category'));
     }
-
-
-    public function edit(Offer $offer)
-    {
-
-
-        $offer = Offer::join('offers_translations', 'offers_translations.offers_id', '=', 'offers.id')
-            ->where('offers_translations.locale', '=', 'pl')
-
-            ->orderBy('offers_translations.name', 'asc')
-
-            ->findOrFail($offer->id);
-
-
-        $pages = Page::all();
-        $action = 'edit';
-
-        $tableName = 'offers_photo';
-        $columnName = 'localization';
-
-        // $localizationOptions = OfferPhoto::getEnumValues('localization');
-        $enumOptions = DB::select("SHOW COLUMNS FROM {$tableName} WHERE Field = '{$columnName}'")[0]->Type;
-        preg_match('/^enum\((.*)\)$/', $enumOptions, $matches);
-        $enumValues = explode(',', $matches[1]);
-
-        // Usunięcie pojedynczych cudzysłowów z każdej opcji
-        $localizationOptions = array_map(function ($value) {
-            return trim($value, "'");
-        }, $enumValues);
-
-
-
-
-        $tableName = 'offers_photo';
-        $columnName = 'localization';
-
-
-        return view('panel.offers.form', compact('offer', 'action', 'pages', 'localizationOptions'));
-    }
-
 
     public function create(Request $request)
     {
 
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
             'lead' => 'required',
+            'locale' => 'required',
+            'link' => 'required',
+            'short_description'  => 'required',
             'description' => 'required',
-            'offer_category_id' => 'required',
+            'category_id' => 'required',
+            'top' => 'top',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
+        $top = 0;
+
+        if ($request->input('top')!=null) { $top=1; }
 
         $offer = new Offer();
-        $offer->title = $request->input('title');
-        $offer->lead = $request->input('lead');
-        $offer->description = $request->input('description');
-        $offer->offer_category_id = $request->input('offer_category_id');
+        $offer->top = $top;
+        $offer->category_id = $request->input('category_id');
         $offer->save();
+
+
+
+        $offerTranslation = new OfferTranslation();
+        $offerTranslation->offers_id = $offer->id;
+        $offerTranslation->name = $request->input('name');
+        $offerTranslation->lead = $request->input('lead');
+        $offerTranslation->link = $request->input('link');
+        $offerTranslation->short_description = $request->input('short_description');
+        $offerTranslation->description = $request->input('description');
+        $offerTranslation->locale = $request->input('locale');
+        $offerTranslation->save();
         $pom = 0;
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
@@ -162,9 +144,49 @@ class PanelOfferController extends Controller
             }
         }
 
-        return redirect()->route('panel.offer.list')
+        return redirect()->route('panel.offers.list')
             ->with('success', 'Wiadomość została utworzona.');
     }
+
+
+    public function edit(Offer $offer)
+    {
+
+
+        $offer = Offer::join('offers_translations', 'offers_translations.offers_id', '=', 'offers.id')
+            ->where('offers_translations.locale', '=', 'pl')
+
+            ->orderBy('offers_translations.name', 'asc')
+
+            ->findOrFail($offer->id);
+
+        $category = OfferCategory::all();
+        $pages = Page::all();
+        $action = 'edit';
+
+
+        $tableName = 'offers_photo';
+        $columnName = 'localization';
+
+        // $localizationOptions = OfferPhoto::getEnumValues('localization');
+        $enumOptions = DB::select("SHOW COLUMNS FROM {$tableName} WHERE Field = '{$columnName}'")[0]->Type;
+        preg_match('/^enum\((.*)\)$/', $enumOptions, $matches);
+        $enumValues = explode(',', $matches[1]);
+
+        // Usunięcie pojedynczych cudzysłowów z każdej opcji
+        $localizationOptions = array_map(function ($value) {
+            return trim($value, "'");
+        }, $enumValues);
+
+
+
+
+        $tableName = 'offers_photo';
+
+        return view('panel.offers.form', compact('offer', 'action', 'pages','category','localizationOptions'));
+    }
+
+
 
     public function update(Request $request, Offer $offer)
     {
@@ -179,8 +201,10 @@ class PanelOfferController extends Controller
             'name' => 'required',
             'lead' => 'required',
             'offers_id' => 'required',
+            'category_id' => 'required',
             'gallery_id' => 'nullable',
             'locale' => 'required',
+            'link' => 'required',
             'short_description' => 'required',
             'lead' => 'nullable',
             'description' => 'nullable',
@@ -195,8 +219,9 @@ class PanelOfferController extends Controller
         $dataToUpdate = $request->only([
             'name',
             'lead',
+            'link',
             'offers_id',
-            'gallery_id',
+            'category_id',
             'locale',
             'short_description',
             'lead',
@@ -214,10 +239,10 @@ class PanelOfferController extends Controller
                 $uniqueId = substr(md5(time() . rand()), 0, 8);
                 // Tworzenie unikalnej nazwy dla każdego obrazu
                 // Miejsce docelowe
-                $destinationPath = public_path('/offer/' . $offer->id . '/gallery');
+                $destinationPath = public_path('/resources/offers/' . $offer->id . '/gallery');
 
-                if (!Storage::exists($destinationPath)) {
-                    Storage::makeDirectory($destinationPath, 0755, true, true);
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true, true);
                 }
 
 
@@ -262,13 +287,14 @@ class PanelOfferController extends Controller
 
             $destinationPath = public_path('/offer/' . $photo->offer_id . '/gallery');
 
-            if (Storage::exists($destinationPath . '/' . $photo->name . 'kw.webp')) {
-                Storage::delete($destinationPath . '/' . $photo->name . 'kw.webp');
-                Storage::delete($destinationPath . '/' . $photo->name . 'd.webp');
-                Storage::delete($destinationPath . '/' . $photo->name . 'm.webp');
+            if (file::exists($destinationPath . '/' . $photo->name . 'kw.webp')) {
+                file::delete($destinationPath . '/' . $photo->name . 'kw.webp');
+                file::delete($destinationPath . '/' . $photo->name . 'd.webp');
+                file::delete($destinationPath . '/' . $photo->name . 'm.webp');
             }
-        }
 
+        }
+     
         // Usuń wszystkie zdjęcia powiązane z tym offer-em
         $offer->photo()->delete(); // zakładając, że relacja w modelu Offer do zdjęć nazywa się "photos"
 
@@ -320,19 +346,19 @@ class PanelOfferController extends Controller
 
         if ($photo) {
 
-            $destinationPath = public_path('/offer/' . $photo->offers_id . '/gallery');
+            $destinationPath = public_path('/resources/offers/' . $photo->offers_id . '/gallery');
             //$destinationPath = '/offer/'.$photo->offers_id.'/gallery';
          
-
-            if (Storage::exists($destinationPath)) {
-                Storage::delete($destinationPath . '/' . $photo->name . 'kw.webp');
-                Storage::delete($destinationPath . '/' . $photo->name . 'd.webp');
-                Storage::delete($destinationPath . '/' . $photo->name . 'm.webp');
+        
+            if (file::exists($destinationPath)) {
+                file::delete($destinationPath . '/' . $photo->name . 'kw.webp');
+                file::delete($destinationPath . '/' . $photo->name . 'd.webp');
+                file::delete($destinationPath . '/' . $photo->name . 'm.webp');
             } else {
                 dd('nie znaleziono sciezki: ' . $destinationPath . '/' . $photo->name . 'kw.webp');
             }
             // Usuń informacje o zdjęciach z bazy danych
-            //  $photo->delete();
+              $photo->delete();
 
             $url = route('panel.offers.edit', $offers_id) . '#photo_list';
 

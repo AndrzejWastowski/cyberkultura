@@ -11,7 +11,9 @@ class Offer extends Model
     protected $table = 'offers';
     protected $fillable = [
         'id',
-
+        'top',
+        'category_id',
+      
     ];
 
 
@@ -23,6 +25,11 @@ class Offer extends Model
     public function photo()
     {
         return $this->hasMany(OfferPhoto::class,'offers_id','id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(OfferCategory::class, 'id');
     }
 
 }

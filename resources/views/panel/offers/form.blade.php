@@ -21,7 +21,6 @@
         </div>
     @endif
 
-
     <div class="container">
         <form id="myForm"
             action="{{ $action == 'create' ? route('panel.offers.create') : route('panel.offers.update', [$offer]) }}"
@@ -33,40 +32,53 @@
             <input type="hidden" name="offers_id" value="{{ $offer->offers_id }}">
             <div class="card" id="offers">
                 <div class="card-body">
-                    <div class="col-md-6">
-                        <h5 class="card-title">Nazwa</h5>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ $offer->name }}"
-                            required>
-                    </div>
                     <div class="row">
                         <div class="col-md-8">
+                            <h5 class="card-title">Nazwa</h5>
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ $offer->name }}" required>
+                        </div>
+                        <div class="col-md-2">
                             <h5 class="card-title">Język</h5>
-                            {{ $offer->locale  }}
-                            <input type="hidden" name="locale" id="locale" value="{{ $offer->locale  }}">
+
+                            {{ $offer->locale }}
+                            <input type="hidden" name="locale" id="locale" value="{{ $offer->locale }}">
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
-                    <div class="col-md-6">
-                        <h5 class="card-title">Krótki opis - max 50 znaków</h5>
-                        <input type="text" class="form-control" id="short_description" name="short_description" value="{{ $offer->short_description }}"
-                            required>
-                    </div>
                     <div class="row">
-                        <div class="col-md-8">
-                            <h5 class="card-title">Język</h5>
-                            {{ $offer->locale  }}
-                            <input type="hidden" name="locale" id="locale" value="{{ $offer->locale  }}">
+                        <div class="col-md-6">
+                            <h5 class="card-title">Krótki opis <i>(3 - 4 słowa kluczowe)</i></h5>
+                            <input type="text" class="form-control" id="short_description" name="short_description"
+                                value="{{ $offer->short_description }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="card-title">Link - <i>(bez spacji i pl znaków)</i></h5>
+                            <input type="text" class="form-control" name="link" id="link"
+                                value="{{ $offer->link }}">
                         </div>
                     </div>
-                </div>
 
-                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5 class="card-title">Kategoria</h5>
+                            <select class="form-select" id="category_id" name="category_id" required>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $item->id === $offer->category_id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+
                     <h5 class="card-title">Lead</h5>
-                    <label for="news_category_id" class="form-label"><i>Lead - krótki opis, streszczenie lub wstęp do newsa.
-                           </i></label>
-                    <p>najlepiej od 50 do 250 znaków</p>
+                    <label for="lead" class="form-label"><i>Lead - krótki opis, streszczenie lub wstęp do newsa.
+                        </i></label>
+                    <p>Najlepiej od 50 do 250 znaków</p>
                     <!-- Quill Editor Default -->
                     <div id="lead-editor" style="block-size: 150px;">{!! $offer->lead !!} </div>
                     <input type="hidden" name="lead" id="hidden-lead">
@@ -116,7 +128,7 @@
                     <div class="row mb-3" id="photo_{{ $photo->id }}">
                         <div class="col-3">
 
-                            <img src="{{ asset('/offer/' . $offer->id . '/gallery/' . $photo->name . 'm.webp') }}"
+                            <img src="{{ asset('/resources/offers/' . $offer->id . '/gallery/' . $photo->name . 'm.webp') }}"
                                 class="img-fluid">
                         </div>
                         <div class="col-9">
@@ -186,80 +198,123 @@
     </div>
 @endsection
 
-@section ('script')
-<script>
-//ustawiamy datę
-function getCurrentDatetime() {
-    const now = new Date();
-    let month = (now.getMonth() + 1).toString().padStart(2, '0');
-    let day = now.getDate().toString().padStart(2, '0');
-    let hours = now.getHours().toString().padStart(2, '0');
-    let minutes = now.getMinutes().toString().padStart(2, '0');
-    return `${now.getFullYear()}-${month}-${day}T${hours}:${minutes}`;
-}
+@section('script')
+    <script>
+        //ustawiamy datę
+        function getCurrentDatetime() {
+            const now = new Date();
+            let month = (now.getMonth() + 1).toString().padStart(2, '0');
+            let day = now.getDate().toString().padStart(2, '0');
+            let hours = now.getHours().toString().padStart(2, '0');
+            let minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${now.getFullYear()}-${month}-${day}T${hours}:${minutes}`;
+        }
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
 
-    // Konfiguracja edytora dla pola "Description"
-    var descriptionEditorOptions = {
-        modules: {
-            toolbar: [
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ 'color': [] }, { 'background': [] }],
-                [{'align': 'left'}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
-                ['blockquote', 'code-block'],
-                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                [{ 'script': 'sub' }, { 'script': 'super' }],
-                [{ 'indent': '-1' }, { 'indent': '+1' }],
-                ['clean']
-            ]
-        },
+            // Konfiguracja edytora dla pola "Description"
+            var descriptionEditorOptions = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'align': 'left'
+                        }, {
+                            'align': 'center'
+                        }, {
+                            'align': 'right'
+                        }, {
+                            'align': 'justify'
+                        }],
+                        ['blockquote', 'code-block'],
+                        [{
+                            'header': [1, 2, 3, 4, 5, 6, false]
+                        }],
+                        [{
+                            'list': 'ordered'
+                        }, {
+                            'list': 'bullet'
+                        }],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        ['clean']
+                    ]
+                },
 
-        theme: 'snow'
-    };
+                theme: 'snow'
+            };
 
-    var leadEditorOptions = {
-        modules: {
-            toolbar: [
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ 'color': [] }, { 'background': [] }],
-                [{'align': 'left'}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
-                ['blockquote', 'code-block'],
-                [{ 'script': 'sub' }, { 'script': 'super' }],
-                [{ 'indent': '-1' }, { 'indent': '+1' }],
-                ['clean']
-            ]
-        },
+            var leadEditorOptions = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'align': 'left'
+                        }, {
+                            'align': 'center'
+                        }, {
+                            'align': 'right'
+                        }, {
+                            'align': 'justify'
+                        }],
+                        ['blockquote', 'code-block'],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        ['clean']
+                    ]
+                },
 
-        theme: 'snow'
-    }
+                theme: 'snow'
+            }
 
-        // Inicjalizacja edytora dla pola "Description"
-        var descriptionEditor = new Quill('#description-editor', descriptionEditorOptions);
-         // Inicjalizacja edytora dla pola "lead"
-         var leadEditor = new Quill('#lead-editor', leadEditorOptions);
+            // Inicjalizacja edytora dla pola "Description"
+            var descriptionEditor = new Quill('#description-editor', descriptionEditorOptions);
+            // Inicjalizacja edytora dla pola "lead"
+            var leadEditor = new Quill('#lead-editor', leadEditorOptions);
 
-        // Pobierz formularz
-        var form = document.getElementById('myForm');
+            // Pobierz formularz
+            var form = document.getElementById('myForm');
 
-        // Dodaj obsługę zdarzenia submit formularza
-        form.onsubmit = function() {
+            // Dodaj obsługę zdarzenia submit formularza
+            form.onsubmit = function() {
 
-        // Pobierz zawartość edytorów Quill
+                // Pobierz zawartość edytorów Quill
 
-        var descriptionContent = descriptionEditor.root.innerHTML;
-        document.getElementById('hidden-description').value = descriptionContent;
+                var descriptionContent = descriptionEditor.root.innerHTML;
+                document.getElementById('hidden-description').value = descriptionContent;
 
-        var leadContent = leadEditor.root.innerHTML;
-        document.getElementById('hidden-lead').value = leadContent;
-    }
-});
-
-
-
-</script>
+                var leadContent = leadEditor.root.innerHTML;
+                document.getElementById('hidden-lead').value = leadContent;
+            }
+        });
+    </script>
 @endsection

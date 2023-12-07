@@ -12,9 +12,10 @@ class OfferTranslation extends Model
     use HasFactory;
     protected $table = 'offers_translations';
     protected $fillable = [
+        'offers_id',
         'name',
         'lead',
-        'offers_id',
+        'link',
         'locale',
         'short_description',
         'description'];

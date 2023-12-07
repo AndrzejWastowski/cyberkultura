@@ -19,7 +19,7 @@
         <div class="card">
           <div class="card-body">
             <div class="row pt-3" >
-              <a href="{{ route('panel.offers.add') }}"><button  class="btn btn-success mb-3">Dodaj nową wiadomość</button></a>
+              <a href="{{ route('panel.offers.add') }}?locale=pl"><button  class="btn btn-success mb-3">Dodaj nową wiadomość</button></a>
           </div>
             <!-- Table with stripped rows -->
             <table id="myTable">
@@ -28,7 +28,7 @@
                         <th >ID</th>
                         <th>Tytuł</th>
                         <th>Kategoria</th>
-                        <th>Data publikacji</th>
+                        <th>Locale</th>
                         <th>Kontrolki</th>
                     </tr>
                 </thead>
@@ -37,8 +37,11 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td><a href="{{ route('panel.offers.edit',$item->id) }}#offers">{{ $item->name }}</a></td>
-                            <td>kategorie</td>
-                            <td>{{ $item->date_publication }}</td>
+                            <td>Kategorie</td>
+                            <td>
+                                <a href="{{ route('panel.offers.edit',$item->id) }}?locale=pl">pl</a>
+                                <a href="{{ route('panel.offers.edit',$item->id) }}?locale=en">en</a>
+                            </td>
                             <td><a class="btn btn-sm btn-info" href="{{ route('page.offer.show', [$item->id,$item->name]) }}">Podgląd</a>
                             <a class="btn btn-sm btn-primary" href="{{ route('panel.offers.edit', $item->id) }}#offers">Edycja</a>
                             <form action="{{ route('panel.offers.destroy', $item) }}" method="POST" style="display: inline-block;">
