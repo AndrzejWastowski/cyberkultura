@@ -191,9 +191,7 @@ class PanelOfferController extends Controller
     public function update(Request $request, Offer $offer)
     {
 
-        $offerTranslation = OfferTranslation::where('offers_translations.locale', '=', 'pl')
-            ->where('offers_translations.offers_id', '=', $offer->id)->first();
-
+      
 
         $request->except('_token');
         //  dd($request->all());
@@ -202,7 +200,6 @@ class PanelOfferController extends Controller
             'lead' => 'required',
             'offers_id' => 'required',
             'category_id' => 'required',
-            'gallery_id' => 'nullable',
             'locale' => 'required',
             'link' => 'required',
             'short_description' => 'required',
@@ -216,22 +213,33 @@ class PanelOfferController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $top=0;
+        if ($request->input('top')!=null) { $top=1; }
+
+        $offer = Offer::where('id','=', $request->input('offers_id'))->first();
+        $offer_validate['top'] = $top;
+        $offer_validate['category_id'] = $request->input('category_id');
+        $offer->update($offer_validate);
+
+        $offerTranslation = OfferTranslation::where('offers_translations.locale', '=', 'pl')
+        ->where('offers_translations.offers_id', '=', $offer->id)->first();
+
         $dataToUpdate = $request->only([
             'name',
             'lead',
             'link',
             'offers_id',
-            'category_id',
             'locale',
             'short_description',
             'lead',
             'description',
         ]);
 
+      
 
         $offerTranslation->update($dataToUpdate);
 
-        $pom = OfferPhoto::where('offers_id', $offer->id)->count();
+        $pom = OfferPhoto::where('offers_id',  $offer->id)->count();
 
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
@@ -264,7 +272,7 @@ class PanelOfferController extends Controller
 
                 // Zapisywanie ścieżki do bazy danych
                 $photo = new OfferPhoto();
-                $photo->offers_id = $offer->id;
+                $photo->offers_id = $dataToUpdate['offers_id'];
                 $photo->name = $uniqueId;
                 $photo->top = 0;
                 $photo->sort = $pom;

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('offers_translations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('offers_id');
-            $table->unsignedBigInteger('gallery_id');
             $table->string('locale', 2);
             $table->string('name')->unique('name');;
             $table->string('link')->unique('link');
