@@ -112,15 +112,6 @@ Route::delete('/products_categories/{id}', [ProductsCategoryController::class,'d
 
 
 
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('github')->redirect();
-});
-
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('github')->user();
-    // $user->token
-});
-
 
 //trasy dla podstron w panelu administracyjnym
 Auth::routes();
