@@ -1,7 +1,7 @@
 @extends('panel.app')
 @section('content')
 <div class="pagetitle">
-    <h1>{{ $action == 'create' ? 'Dodawanie' : 'Edytpowanie'}} wiadomości</h1>
+    <h1>{{ $action == 'create' ? 'Dodawanie' : 'Edytowanie'}} wiadomości</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Panel</a></li>
@@ -21,7 +21,6 @@
   </div>
 @endif
 
-    
     <div class="container" >
         <form id="myForm" action="{{ $action == 'create' ? route('panel.news.create') : route('panel.news.update', $news)}}" enctype="multipart/form-data" method="POST">
             @csrf
@@ -31,9 +30,18 @@
 
             <div class="card" id="news">
                 <div class="card-body">
-                    <div class="col-md-6">
-                        <h5 class="card-title">Tytuł</h5>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ $news->title }}" required>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="card-title">Tytuł</h5>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ $news->title }}" required>
+                        </div>
+                        <div class="col-md-3">
+                            <h5 class="card-title">Ukryj</h5>
+
+                            <input class="form-check-input" type="checkbox" value=1 id="hidden" name="hidden" {{  $news->hidden  == "1" ? "checked" : "" }}>
+                            <label class="form-check-label " for="hidden" > Ukryj na stronie</label>
+
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
@@ -51,6 +59,19 @@
                             <h5 class="card-title">Data publikacji</h5>
                             <div class="col-sm-10">
                                 <input id="date_publication" type="datetime-local" name="date_publication" value="{{ $news->date_publication }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h5 class="card-title">Wiszący</h5>
+                            <input class="form-check-input" type="checkbox" value=1 id="top" name="top" {{  $news->top  == "1" ? "checked" : "" }}>
+                            <label class="form-check-label " for="hidden" > Wiszący</label>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="card-title">Data konca</h5>
+                            <div class="col-sm-10">
+                                <input id="date_end" type="datetime-local" name="date_end" value="{{ $news->date_end }}" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -77,6 +98,53 @@
                     <input type="hidden" name="description" id="hidden-description">
 
                     <!-- End Quill Editor Full -->
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input class="form-check-input" type="checkbox" value=1 id="top" name="top" {{  $news->facebook  == "1" ? "checked" : "" }}>
+                            <label class="form-check-label " for="hidden" > Wiszący</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-check-input" type="checkbox" value=1 id="comments" name="comments" {{  $news->comments  == "1" ? "checked" : "" }}>
+                            <label class="form-check-label " for="hidden" > Komentarze</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input class="form-check-input" type="checkbox" value=1 id="print" name="print" {{  $news->print  == "1" ? "checked" : "" }}>
+                            <label class="form-check-label " for="hidden" > Drukowanie</label>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="card-title">Data konca</h5>
+                            <div class="col-sm-10">
+                                <input id="date_end" type="datetime-local" name="date_end" value="{{ $news->date_end }}" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="card-title">Tagi</h5>
+                        </div>
+
+                        @php $pom=1; @endphp
+
+                        @foreach ($news->tags as $tag)
+                        @php $pom++;  @endphp
+                            <div class="col-md-3">
+                                <h5 class="card-title">Tag {{ $pom }}</h5>
+                                <input type="text" class="form-control" id="tags_{{ $pom }}" name="tags[]" value="{{ $tag->name }}" >
+                            </div>
+                        @endforeach
+
+
+                        @for ($pom;$pom<5;$pom++)
+                            <div class="col-md-3">
+                                <h5 class="card-title">Tag {{ $pom }}</h5>
+                                <input type="text" class="form-control" id="tags_{{ $pom }}" name="tags[]" value="{{ $news->name }}" >
+                            </div>
+                        @endfor
 
                 </div>
             </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\Tag;
+use App\Models\NewsTags;
 use App\Models\NewsPhoto;
 use App\Models\NewsCategory;
 use App\Models\Page;
@@ -173,6 +175,22 @@ class PanelNewsController extends Controller
             }
         }
 
+
+        NewsTags::where('news_id', $news->id)->delete();
+
+        if($request->input('tags'))
+        {
+            foreach($request->input('tags') as $tag)
+            {
+                $tag = Tag::firstOrCreate(['name' => $tag]);
+                dd( $tag);
+                NewsTags::create([
+                    'tags_id' => $tag->id,
+                    'news_id' => $news->id
+                ]);
+            }
+        }
+
         return redirect()->route('panel.news.list')
             ->with('success', 'Wiadomość została utworzona.');
     }
@@ -195,10 +213,22 @@ class PanelNewsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
        // dd($request);
         $news->update($request->all());
-      //  dd('przed odbiorem zdjęć edycja');
+
+        NewsTags::where('news_id', $news->id)->delete();
+
+        if($request->input('tags'))
+        {
+            foreach($request->input('tags') as $tag)
+            {
+                $tag = Tag::firstOrCreate(['name' => $tag]);
+                NewsTags::create([
+                    'tags_id' => $tag->id,
+                    'news_id' => $news->id
+                ]);
+            }
+        }
 
         $pom = NewsPhoto::where('news_id', $news->id)->count();
 
@@ -260,13 +290,10 @@ class PanelNewsController extends Controller
     // Usuń każde zdjęcie fizycznie ze serwera
 foreach ($photos as $photo) {
 
-
-        if(Storage::exists('/news/'.$photo->news_id.'/gallery/'.$photo->name.'kw.webp')) {
-            Storage::delete('/news/'.$photo->news_id.'/gallery/'.$photo->name.'kw.webp');
-            Storage::delete('/news/'.$photo->news_id.'/gallery/'.$photo->name.'d.webp');
-            Storage::delete('/news/'.$photo->news_id.'/gallery/'.$photo->name.'m.webp');
-       
-
+    if(Storage::exists('/news/'.$photo->news_id.'/gallery/'.$photo->name.'kw.webp')) {
+        Storage::delete('/news/'.$photo->news_id.'/gallery/'.$photo->name.'kw.webp');
+        Storage::delete('/news/'.$photo->news_id.'/gallery/'.$photo->name.'d.webp');
+        Storage::delete('/news/'.$photo->news_id.'/gallery/'.$photo->name.'m.webp');
     }
 }
 

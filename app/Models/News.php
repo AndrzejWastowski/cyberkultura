@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use app\Models\Teg;
 
 class News extends Model
 {
@@ -45,6 +46,11 @@ class News extends Model
     public function photo()
     {
         return $this->hasMany(NewsPhoto::class,'news_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'news_tags', 'news_id', 'tags_id');
     }
 
 
