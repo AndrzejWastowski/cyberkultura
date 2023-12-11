@@ -51,10 +51,10 @@
       </li><!-- End news Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#news-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#products-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Produkty</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="news-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="products-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{  route('panel.products.add') }}">
               <i class="bi bi-circle"></i><span>Dodaj produkt</span>

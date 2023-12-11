@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->comment('');
             $table->id();
-            $table->integer('news_categories_id')->index('wiadomosci_kategorie_id');
+            $table->integer('news_category_id')->index('news_category_id');
             $table->string('title', 250);
             $table->text('lead');
             $table->text('content')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('note_source_link', 250)->nullable()->default('');
             $table->text('addition')->nullable();
             $table->text('addition_source')->nullable();
-            $table->integer('users_id')->default(0)->index('uzytkownicy_id');
+            $table->integer('users_id')->default(0)->index('users_id');
             $table->tinyInteger('top')->default(0);
             $table->tinyInteger('comments')->default(0);
             $table->smallInteger('comments_count')->default(0);
@@ -39,6 +39,7 @@ return new class extends Migration
             $table->tinyInteger('facebook')->default(0);
             $table->tinyInteger('print')->default(0);
             $table->enum('ln', ['pl', 'en'])->default('pl');
+            $table->timestamps();
         });
     }
 

@@ -169,3 +169,125 @@
         </div>
     </div>
 @endsection
+
+
+@section('script')
+    <script>
+        //ustawiamy datę
+        function getCurrentDatetime() {
+            const now = new Date();
+            let month = (now.getMonth() + 1).toString().padStart(2, '0');
+            let day = now.getDate().toString().padStart(2, '0');
+            let hours = now.getHours().toString().padStart(2, '0');
+            let minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${now.getFullYear()}-${month}-${day}T${hours}:${minutes}`;
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+            // Konfiguracja edytora dla pola "Description"
+            var descriptionEditorOptions = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'align': 'left'
+                        }, {
+                            'align': 'center'
+                        }, {
+                            'align': 'right'
+                        }, {
+                            'align': 'justify'
+                        }],
+                        ['blockquote', 'code-block'],
+                        [{
+                            'header': [1, 2, 3, 4, 5, 6, false]
+                        }],
+                        [{
+                            'list': 'ordered'
+                        }, {
+                            'list': 'bullet'
+                        }],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        ['clean']
+                    ]
+                },
+
+                theme: 'snow'
+            };
+
+            var leadEditorOptions = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'align': 'left'
+                        }, {
+                            'align': 'center'
+                        }, {
+                            'align': 'right'
+                        }, {
+                            'align': 'justify'
+                        }],
+                        ['blockquote', 'code-block'],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        ['clean']
+                    ]
+                },
+
+                theme: 'snow'
+            }
+
+            // Inicjalizacja edytora dla pola "Description"
+            var descriptionEditor = new Quill('#description-editor', descriptionEditorOptions);
+            // Inicjalizacja edytora dla pola "lead"
+            var leadEditor = new Quill('#lead-editor', leadEditorOptions);
+
+            // Pobierz formularz
+            var form = document.getElementById('myForm');
+
+            // Dodaj obsługę zdarzenia submit formularza
+            form.onsubmit = function() {
+
+                // Pobierz zawartość edytorów Quill
+
+                var descriptionContent = descriptionEditor.root.innerHTML;
+                document.getElementById('hidden-description').value = descriptionContent;
+
+                var leadContent = leadEditor.root.innerHTML;
+                document.getElementById('hidden-lead').value = leadContent;
+            }
+        });
+    </script>
+@endsection

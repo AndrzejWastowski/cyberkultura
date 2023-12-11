@@ -39,7 +39,7 @@
                             <td><a href="{{ route('panel.news.edit',$item->id) }}#news">{{ $item->title }}</a></td>
                             <td>{{ $item->category->name }}</td>
                             <td>{{ $item->date_publication }}</td>
-                            <td><a class="btn btn-sm btn-info" href="{{ route('aktualnosci.show', $item->id) }}">Podgląd</a>
+                            <td><a class="btn btn-sm btn-info" href="{{ route('page.news.show', $item->id) }}">Podgląd</a>
                             <a class="btn btn-sm btn-primary" href="{{ route('panel.news.edit', $item->id) }}#news">Edycja</a>
                             <form action="{{ route('panel.news.destroy', $item) }}" method="POST" style="display: inline-block;">
                                 @csrf

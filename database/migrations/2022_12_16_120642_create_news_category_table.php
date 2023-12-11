@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('news_categories', function (Blueprint $table) {
+        Schema::create('news_category', function (Blueprint $table) {
             $table->comment('');
             $table->id();
             $table->string('name', 50)->nullable()->unique('name');
             $table->string('icon', 50)->nullable();
             $table->string('color', 12)->nullable();
             $table->boolean('deleted')->default(false);
+            $table->integer('counter')->default(0);
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news_categories');
+        Schema::dropIfExists('news_category');
     }
 };

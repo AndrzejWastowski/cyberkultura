@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('news_tags', function (Blueprint $table) {
             $table->id();
             $table->comment('');
-            $table->integer('tags_id')->index('tagi_id');
-            $table->integer('news_id')->index('wiadomosci_id');
+            $table->integer('tags_id')->index('tags_id');
+            $table->integer('news_id')->index('news_id');
         });
     }
 

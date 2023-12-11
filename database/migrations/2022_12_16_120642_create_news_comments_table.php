@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('news_comments', function (Blueprint $table) {
             $table->comment('');
             $table->id();
-            $table->integer('news_id')->index('wiadomosc_id');
+            $table->integer('news_id')->index('news_id');
             $table->dateTime('date_add');
             $table->string('coockies_id', 32);
             $table->string('signature', 50);

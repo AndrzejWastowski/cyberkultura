@@ -14,6 +14,7 @@ use \App\Http\Controllers\Page\InstagramController;
 use \App\Http\Controllers\Page\CartController;
 use \App\Http\Controllers\Page\PageController;
 use \App\Http\Controllers\Page\SitemapController;
+use \App\Http\Controllers\Page\NewsController;
 use \App\Http\Controllers\Page\GoogleSocialiteController;
 
 
@@ -64,7 +65,9 @@ Route::get('/oferta/{offer}/{name}/{subcat}',   [OfferController::class, 'show']
 Route::get('/faq',   [FaqController::class, 'show'])->name('page.faq');
 Route::get('/instagram-photos', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
 
-Route::get('/news',   [NewsController::class, 'show'])->name('page.news');
+Route::get('/news',   [NewsController::class, 'lists'])->name('page.news');
+Route::get('/news/lists',   [NewsController::class, 'lists'])->name('page.news.lists');
+Route::get('/news/{news}',   [NewsController::class, 'show'])->name('page.news.show');
 
 
 Route::get('/podstrona/{pages}/', [PageController::class, 'show'])->name('page.subpage');

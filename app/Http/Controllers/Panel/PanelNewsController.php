@@ -70,7 +70,7 @@ class PanelNewsController extends Controller
         $action = 'create';
         $category = NewsCategory::all();
 
-        return view('panel.news.form_news', compact('news','category','action','pages'));
+        return view('panel.news.form', compact('news','category','action','pages'));
     }
 
 
@@ -101,7 +101,7 @@ class PanelNewsController extends Controller
             return trim($value, "'");
         }, $enumValues);
 
-        return view('panel.news.form_news', compact('news','category','action','pages','localizationOptions'));
+        return view('panel.news.form', compact('news','category','action','pages','localizationOptions'));
     }
 
 
