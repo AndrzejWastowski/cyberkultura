@@ -15,6 +15,8 @@ use \App\Http\Controllers\Page\CartController;
 use \App\Http\Controllers\Page\PageController;
 use \App\Http\Controllers\Page\SitemapController;
 use \App\Http\Controllers\Page\NewsController;
+use \App\Http\Controllers\Page\FaqController;
+
 use \App\Http\Controllers\Page\GoogleSocialiteController;
 
 
@@ -28,6 +30,8 @@ use App\Http\Controllers\Panel\PanelStatisticsController;
 use App\Http\Controllers\Panel\PanelUserController;
 use App\Http\Controllers\Panel\PanelContactController;
 use App\Http\Controllers\Panel\PanelOfferController;
+use App\Http\Controllers\Panel\PanelHelpController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +62,7 @@ Route::get('/greeting/{locale}', function (string $locale) {
 Route::get('/home',     [HomeController::class, 'index'])->name('page.home');
 
 Route::get('/kontakt',  [ContactController::class, 'index'])->name('page.contact');
-Route::get('/o_firmie',  [AboutController::class, 'index'])->name('page.about');
+Route::get('/o_firmie',  [PageController::class, 'index'])->name('page.about');
 Route::get('/oferta',   [OfferController::class, 'index'])->name('page.offer');
 Route::get('/oferta/{offer}/{name}',   [OfferController::class, 'show'])->name('page.offer.show');
 Route::get('/oferta/{offer}/{name}/{subcat}',   [OfferController::class, 'show'])->name('page.offer.show.detail');
