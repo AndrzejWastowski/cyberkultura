@@ -168,7 +168,8 @@ class PanelNewsController extends Controller
                 $photo->news_id = $news->id;
                 $photo->name = $uniqueId;
                 $photo->sort = $pom;
-                $photo->top = 0;
+                if ($pom == 0) $photo->top = 1;
+                else $photo->top = 0;
                 $photo->description = "";
                 $photo->user_id = Auth::id(); // Dodaj t
                 $photo->save();
@@ -178,16 +179,23 @@ class PanelNewsController extends Controller
 
         NewsTags::where('news_id', $news->id)->delete();
 
-        if($request->input('tags'))
-        {
-            foreach($request->input('tags') as $tag)
-            {
-                $tag = Tag::firstOrCreate(['name' => $tag]);
-                dd( $tag);
-                NewsTags::create([
-                    'tags_id' => $tag->id,
-                    'news_id' => $news->id
-                ]);
+        if ($request->input('tags')) {
+            foreach ($request->input('tags') as $tag) {
+                if (!empty($tag)) {
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+
+                    // Sprawdź, czy para tags_id i news_id już istnieje
+                    $existingLink = NewsTags::where('tags_id', $tag->id)
+                                            ->where('news_id', $news->id)
+                                            ->first();
+
+                    if (!$existingLink) {
+                        NewsTags::create([
+                            'tags_id' => $tag->id,
+                            'news_id' => $news->id
+                        ]);
+                    }
+                }
             }
         }
 
@@ -218,15 +226,23 @@ class PanelNewsController extends Controller
 
         NewsTags::where('news_id', $news->id)->delete();
 
-        if($request->input('tags'))
-        {
-            foreach($request->input('tags') as $tag)
-            {
-                $tag = Tag::firstOrCreate(['name' => $tag]);
-                NewsTags::create([
-                    'tags_id' => $tag->id,
-                    'news_id' => $news->id
-                ]);
+        if ($request->input('tags')) {
+            foreach ($request->input('tags') as $tag) {
+                if (!empty($tag)) {
+                    $tag = Tag::firstOrCreate(['name' => $tag]);
+
+                    // Sprawdź, czy para tags_id i news_id już istnieje
+                    $existingLink = NewsTags::where('tags_id', $tag->id)
+                                            ->where('news_id', $news->id)
+                                            ->first();
+
+                    if (!$existingLink) {
+                        NewsTags::create([
+                            'tags_id' => $tag->id,
+                            'news_id' => $news->id
+                        ]);
+                    }
+                }
             }
         }
 
@@ -271,7 +287,8 @@ class PanelNewsController extends Controller
                 $photo->news_id = $news->id;
                 $photo->name = $uniqueId;
                 $photo->description = "";
-                $photo->top = 0;
+                if ($pom == 0) $photo->top = 1;
+                else $photo->top = 0;
                 $photo->sort = $pom;
                 $photo->user_id = Auth::id(); // Dodaj t
                 $photo->save();
