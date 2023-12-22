@@ -67,16 +67,19 @@ Route::get('/oferta',   [OfferController::class, 'index'])->name('page.offer');
 Route::get('/oferta/{offer}/{name}',   [OfferController::class, 'show'])->name('page.offer.show');
 Route::get('/oferta/{offer}/{name}/{subcat}',   [OfferController::class, 'show'])->name('page.offer.show.detail');
 Route::get('/faq',   [FaqController::class, 'show'])->name('page.faq');
-Route::get('/instagram-photos', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
+//Route::get('/instagram-photos', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
+//Route::get('/instagrams', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
+Route::get('/instagram', [InstagramController::class,'show'])->name('page.instagram_cyberkultura');
 
 Route::get('/news',   [NewsController::class, 'lists'])->name('page.news');
 Route::get('/news/lists',   [NewsController::class, 'lists'])->name('page.news.lists');
 Route::get('/news/{news}',   [NewsController::class, 'show'])->name('page.news.show');
 
 
-Route::get('/podstrona/{pages}/', [PageController::class, 'show'])->name('page.subpage');
-Route::get('/podstrona/{pages}/', [PageController::class, 'show'])->name('page.pages');
-Route::get('/podstrona/lista', [PageController::class, 'lists'])->name('page.subpage.list');
+Route::get('/pd/{pages}/', [PageController::class, 'show'])->name('page.subpage');
+Route::get('/pd/{pages}/', [PageController::class, 'show'])->name('page.pages');
+Route::get('/pd/lista', [PageController::class, 'lists'])->name('page.subpage.list');
+
 
 Route::get('/sitemap', [SitemapController::class, 'sitemap'])->name('404');
 
@@ -96,7 +99,7 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('page.cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('page.cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('page.cart.remove');
 
-Route::get('/users',    [UsersController::class,'index'])->name('page.users.index');
+//Route::get('/users',    [UsersController::class,'index'])->name('page.users.index');
 
 //Route::get('/products/{id}', [\App\Http\Controllers\ProductsController::class, 'show'])->name('produkt_id');
 //Route::get('/produkty/{category}', [\App\Http\Controllers\ProductsController::class, 'list'])->name('produkty_kategorie');
@@ -124,7 +127,7 @@ Route::delete('/products_categories/{id}', [ProductsCategoryController::class,'d
 Auth::routes();
 Route::get('/home', [PanelController::class,'index'])->name('home');
 
-Route::get('/panel', [PanelController::class,'index'])->name('panel.panel');
+Route::get('/panel', [PanelController::class,'index'])->name('panel.start');
 
 Route::get('/panel/pages/create', [PanelPageController::class,'create'])->name('panel.pages.create');
 Route::post('/panel/pages/page', [PanelPageController::class,'store'])->name('panel.pages.store');
@@ -191,25 +194,21 @@ Route::get('/panel/contact', [PanelContactController::class,'list'])->name('pane
 Route::put('/panel/contact/update',[PanelContactController::class,'update'])->name('panel.contact.update');
 
 
-
 Route::get('/panel/user/show', [PanelUserController::class,'edit'])->name('panel.user.show');
-Route::get('/panel/user/main_profile', [PanelUserController::class,'edit'])->name('panel.user.main_profile');
-
+Route::get('/panel/user/main_profile', [PanelUserController::class,'mainprofile'])->name('panel.user.main_profile');
 
 Route::get('/panel/user/list', [PanelUserController::class,'list'])->name('panel.user.list');
 Route::get('/panel/user/add', [PanelUserController::class,'add'])->name('panel.user.add');
 Route::post('/panel/user/create', [PanelUserController::class,'create'])->name('panel.user.create');
-Route::get('/panel/user/edit{user}', [PanelUserController::class,'edit'])->name('panel.user.edit');
+Route::get('/panel/user/edit/{user}', [PanelUserController::class,'edit'])->name('panel.user.edit');
 Route::put('/panel/user/edit/{user}', [PanelUserController::class,'update'])->name('panel.user.update');
-Route::delete('/panel/user/destroy', [PanelUserController::class, 'destroy'])->name('panel.user.destroy');
-
+Route::delete('/panel/user/destroy/{user}', [PanelUserController::class, 'destroy'])->name('panel.user.destroy');
 
 
 Route::get('/panel/products/create', [PanelPageController::class,'create'])->name('panel.products.add');
 Route::get('/panel/products/list', [PanelPageController::class,'create'])->name('panel.products.list');
 Route::get('/panel/products/update', [PanelPageController::class,'create'])->name('panel.products.update');
 Route::get('/panel/products/edit', [PanelPageController::class,'create'])->name('panel.products.edit');
-
 
 //dodatkowe niepotrzebne
 Route::get('/panel/pages/create', [PanelPageController::class,'create'])->name('panel.calendary.add');

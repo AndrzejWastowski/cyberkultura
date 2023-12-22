@@ -12,13 +12,17 @@ class InstagramController extends Controller
         $client = new Client();
         $response = $client->request('GET', 'https://graph.instagram.com/me/media', [
             'query' => [
-                'fields' => 'id,caption,media_type,media_url',
-                'access_token' => 'TWÓJ_ACCESS_TOKEN'
+                'fields' => '251255367323684,caption,media_type,media_url',
+                'access_token' => '251255367323684|bOJg_cpBHkmAAMk9gI1laww5Gco'
             ]
         ]);
+
+        dd($response);
 
         $photos = json_decode($response->getBody()->getContents());
 
         return view('instagram', compact('photos'));
     }
 }
+
+

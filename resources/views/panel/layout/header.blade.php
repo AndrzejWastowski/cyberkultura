@@ -64,13 +64,14 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            @if(auth()->user()->isEditorOrAdmin())
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{ route('panel.user.edit',['user'=>Auth::user()]) }}">
                 <i class="bi bi-gear"></i>
                 <span>Ustawienia konta</span>
               </a>
             </li>
+            @endif
             <li>
               <hr class="dropdown-divider">
             </li>
