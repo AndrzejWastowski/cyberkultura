@@ -106,7 +106,6 @@
           <div class="row text-muted align-items-center">
             <div class="col-md-7">Copyright ©2020 All rights reserved | <i class="lar la-heart text-primary heartBeat2"></i>  <u><a class="text-primary" href="#">Cyberkultura</a></u>
             </div>
-            
           </div>
           <div class="row text-muted align-items-center">
             <div class="col-md-7">Polecamy: <i class="lar la-heart text-primary heartBeat2"></i>  <a class="text-primary" href="https://kalendarium.kutno.pl">Kutnowskie Kalendarium - koncerty imprezy i wydarzenia w Kutnie</a>

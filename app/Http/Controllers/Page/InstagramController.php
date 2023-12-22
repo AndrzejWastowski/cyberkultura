@@ -35,11 +35,11 @@ class InstagramController extends Controller
     {
         return view('instagram.show');
     }
-    
+
     public function show2()
     {
         $client = new Client();
-       
+
         $response = $client->request('GET', 'https://graph.facebook.com/v18.0/me/accounts', [
             'query' => [
                 'fields' => 'id,caption,media_type,media_url',
