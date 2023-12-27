@@ -18,8 +18,10 @@
 
     <!-- inject css start -->
 
-    <link href="{{ asset('assets/css/theme-plugin.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/theme-plugin.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/slick.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/slick-theme.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 

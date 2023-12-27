@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class StartController extends Controller
 {
-   
+
     /**
      * Show the application dashboard.
      *
