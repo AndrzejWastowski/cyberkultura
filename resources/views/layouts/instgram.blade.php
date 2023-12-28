@@ -8,7 +8,7 @@
           <div class="d-flex align-items-center">
             <img class="img-fluid" src="assets/images/insta/instagram-logo.png" alt="">
             <div class="ms-3">
-              <h6 class="text-white mb-0">Obserwój nas na</h6>
+              <h6 class="text-white mb-0">Obserwuj nas na</h6>
               <h3 class="text-white mb-0">Instagram</h3>
             </div>
           </div>

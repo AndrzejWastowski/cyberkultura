@@ -62,12 +62,12 @@
 
           </ul>
         </div>
+        <h3 class="mb-0">
+          <h6 class="font-w-6 text-primary animated3 mb-2">{!!  $offer->translations[0]->short_description  !!}</h6>
+          <h1 class="mb-3 animated3 font-w-5"><span class="font-w-8">{{  $offer->translations[0]->name }}</span></h1>
+    </h3>
         <div class="col-lg-6 col-12 mt-5 mt-lg-0">
           <div class="product-details">
-            <h3 class="mb-0">
-                <h6 class="font-w-6 text-primary animated3 mb-2">{!!  $offer->translations[0]->short_description  !!}</h6>
-                <h1 class="mb-3 animated3 font-w-5"><span class="font-w-8">{{  $offer->translations[0]->name }}</span></h1>
-          </h3>
             <div class="star-rating mb-4"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
             </div>
             <ul class="list-unstyled my-4">
