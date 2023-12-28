@@ -96,9 +96,8 @@
 
                 </span>
               </li>
-           
-              <li>Kategoria :<span class="text-muted"> {{ $offer->categories->name }}</span>
-              </li>
+
+              <li>Kategoria :<span class="text-muted"> {{ $offer->categories->name }}</span> </li>
             </ul>
             <p class="mb-4">{!! $offer->translations[0]->lead !!}</p>
             <div class="d-sm-flex align-items-center mb-5">
@@ -122,7 +121,7 @@
   </section>
 
   <!--product details end-->
- 
+
   <!--tab start-->
 
   <section class="p-0">
@@ -165,77 +164,82 @@
                     <div class="shadow-sm text-center p-5">
                       <h4>Opinie klientów</h4>
                       <h5>Średnia</h5>
-                      <h4>4.0</h4>
-                      <h6>{{ $commentsCount }}</h6>
+                      <h4>{{ round($averageRating,1) }}</h4>
+                      <h6>ocen: {{ $commentsCount }}</h6>
                     </div>
                   </div>
                   <div class="col-md-6 mt-3 mt-lg-0">
                     <div class="rating-list">
+                      @php $style='bg-success' @endphp
+                      @foreach ($ratings as $rating => $percentage)
+                        @switch  ($rating)
+                          @case (1)
+                            @php $style='bg-danger' @endphp
+                          @break
+                          @case (2)
+                            @php $style='bg-warning' @endphp
+                          @break
+                          @case (3)
+                            @php $style='bg-info' @endphp
+                          @break
+                          @case (4)
+                            @php $style='bs-teal' @endphp
+                          @break
+                          @case (5)
+                            @php $style='bg-success' @endphp
+                          @break
+                        @endswitch
+
+
                       <div class="d-flex align-items-center mb-2">
-                        <div class="text-nowrap me-3">5 Star</div>
+                        <div class="text-nowrap me-3">{{ $rating }} Star</div>
                         <div class="w-100">
                           <div class="progress" style="height: 5px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar {{ $style }}" role="progressbar" style="width: {{ $percentage }}%;" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
-                        </div><span class="text-muted ms-3">90%</span>
+                        </div><span class="text-muted ms-3">{{ round($percentage, 2) }}%</span>
                       </div>
-                     
-                      <div class="d-flex align-items-center mb-2">
-                        <div class="text-nowrap me-3">3 Star</div>
-                        <div class="w-100">
-                          <div class="progress" style="height: 5px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div><span class="text-muted ms-3">40%</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <div class="text-nowrap me-3">2 Star</div>
-                        <div class="w-100">
-                          <div class="progress" style="height: 5px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div><span class="text-muted ms-3">20%</span>
-                      </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <div class="text-nowrap me-3">1 Star</div>
-                        <div class="w-100">
-                          <div class="progress" style="height: 5px;">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div><span class="text-muted ms-3">10%</span>
-                      </div>
+                      @endforeach
+
+
                     </div>
                   </div>
                 </div>
                 <div class="review-list mt-5">
+
+                  @foreach ($offer->comments as $comment)
                   <div class="d-sm-flex mt-5">
                     <div class="flex-shrink-0">
-                      <img class="img-fluid align-self-center rounded me-md-3 mb-3 mb-md-0" alt="image" src="assets/images/thumbnail/01.jpg">
+                      <img class="img-fluid align-self-center rounded me-md-3 mb-3 mb-md-0" alt="image" src="{{ asset('assets/images/thumbnail/01.jpg') }}">
                     </div>
                     <div class="flex-grow-1 ms-sm-3 mt-4 mt-sm-0">
                       <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Ember Lana</h6>
-                        <small class="mx-3 text-muted">April 09, 2020</small>
-                        <div class="star-rating"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+                        <h6 class="mb-0">{{ $comment->signature }}</h6>
+                        <small class="mx-3 text-muted">{{ $comment->date_add }}</small>
+                        <div class="star-rating">
+                          @php $pom=0; @endphp
+                          @for ($pom;$pom<$comment->rating;$pom++)
+                            <i class="las la-star"></i>
+                          @endfor
                         </div>
                       </div>
-                      <p class="mb-0 mt-3">Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi.</p>
+                      <p class="mb-0 mt-3">{{ $comment->content }}</p>
                     </div>
                   </div>
-
+                  @endforeach
                 </div>
                 <div class="mt-8 shadow p-5">
                   <div class="section-title mb-3">
                     <h4>Dodaj ocenę i komentarz</h4>
                   </div>
-                  <form id="contact-form" class="row" method="post" action="contact.php">
+                  <form id="contact-form" class="row" method="post" action="{{ route('page.offer.comment_send') }}">
                     <div class="messages"></div>
                     <div class="form-group col-sm-6">
-                      <input id="form_name" type="text" name="name" class="form-control" placeholder="Your Name" required="required" data-error="Name is required.">
+                      <input id="form_name" type="text" name="name" class="form-control" placeholder="Twoje Imię / Podpis" required="required" data-error="imię lub podpis są wymagane.">
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group col-sm-6">
-                      <input id="form_email" type="email" name="email" class="form-control" placeholder="Your Email Address" required="required" data-error="Valid email is required.">
+                      <input id="form_email" type="email" name="email" class="form-control" placeholder="E-mail" required="required" data-error="Poprawny adres e-mail jest wymagany.">
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group clearfix col-12">
@@ -249,11 +253,11 @@
                       </select>
                     </div>
                     <div class="form-group col-12">
-                      <textarea id="form_message" name="message" class="form-control" placeholder="Write Your Review" rows="4" required="required" data-error="Please,leave us a review."></textarea>
+                      <textarea id="form_message" name="message" class="form-control" placeholder="Napisz swój komentarz" rows="4" required="required" data-error="Prosze napisać komentarz"></textarea>
                       <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary btn-animated mt-3">Post Review</button>
+                      <button class="btn btn-primary btn-animated mt-3">Wyśli komentarz</button>
                     </div>
                   </form>
                 </div>

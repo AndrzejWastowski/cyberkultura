@@ -66,6 +66,8 @@ Route::get('/o_firmie',  [PageController::class, 'index'])->name('page.about');
 Route::get('/oferta',   [OfferController::class, 'index'])->name('page.offer');
 Route::get('/oferta/{offer}/{name}',   [OfferController::class, 'show'])->name('page.offer.show');
 Route::get('/oferta/{offer}/{name}/{subcat}',   [OfferController::class, 'show'])->name('page.offer.show.detail');
+Route::get('/oferta/komentarz/send',   [OfferController::class, 'comment_send'])->name('page.offer.comment_send');
+
 Route::get('/faq',   [FaqController::class, 'show'])->name('page.faq');
 //Route::get('/instagram-photos', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
 //Route::get('/instagrams', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');

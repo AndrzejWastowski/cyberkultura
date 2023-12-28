@@ -3,8 +3,10 @@ namespace App\Http\Controllers\Page;
 use App\Http\Controllers\Controller;
 
 use App\Models\Offer;
+use App\Models\OfferComment;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use Illuminate\Support\Facades\DB;
 
 class OfferController extends Controller
 {
@@ -28,28 +30,38 @@ class OfferController extends Controller
     public function show(Offer $offer)
     {
 
-        $offers = Offer::join('offers_translations', 'offers.id', '=', 'offers_translations.offers_id')
-            ->where('offers_translations.locale', 'pl')
-            ->orderBy('offers_translations.name') // Sortuj według nazwy w tłumaczeniu
-            ->get();
 
-            $offer1 = Offer::with(['translations' => function($query) {
-                $query->where('offers_translations.locale', 'pl');
-            }])->find($offer->id);
-
-            $offer2 = Offer::with('comments')
-            ->withAvg('comments', 'rating')
+            $offer = Offer::with(['comments' => function ($query) {
+                $query->where('visibility', 1);
+            }])
+            ->withAvg(['comments'=> function ($query) {
+                $query->where('visibility', 1);
+            }], 'rating')
             ->findOrFail($offer->id);
 
             // Liczba komentarzy
-            $commentsCount = $offer2->comments->count();
+            $commentsCount = $offer->comments->count();
 
             // Średnia ocena
-            $averageRating = $offer2->comments_avg_rating;
+            $averageRating = $offer->comments_avg_rating;
 
-            
+            $comments = OfferComment::select('rating', DB::raw('count(*) as total'))
+                ->where('offers_id',$offer->id)
+                ->where('visibility',1)
+                ->groupBy('rating')
+                ->orderBy('rating','desc')
+                ->get();
 
-        return view('page.offer.show', compact('offer','offers','commentsCount','averageRating'));
+           
+
+                $totalComments = $comments->sum('total') ;
+                $ratings = [];
+
+                foreach ($comments as $comment) {
+                    $ratings[$comment->rating] = ($comment->total / $totalComments) * 100;
+                }
+
+        return view('page.offer.show', compact('offer','commentsCount','averageRating','ratings'));
     }
 
 }

@@ -13,6 +13,7 @@ class Offer extends Model
         'id',
         'top',
         'category_id'
+        
     ];
 
 
