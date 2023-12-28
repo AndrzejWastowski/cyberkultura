@@ -96,6 +96,7 @@
 
                 </span>
               </li>
+           
               <li>Kategoria :<span class="text-muted"> {{ $offer->categories->name }}</span>
               </li>
             </ul>

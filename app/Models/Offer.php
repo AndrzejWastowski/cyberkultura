@@ -12,8 +12,7 @@ class Offer extends Model
     protected $fillable = [
         'id',
         'top',
-        'category_id',
-      
+        'category_id'
     ];
 
 
@@ -29,7 +28,7 @@ class Offer extends Model
 
     public function categories()
     {
-        return $this->belongsTo(OfferCategory::class, 'id');
+        return $this->belongsTo(OfferCategory::class,'category_id','id');
     }
     public function comments()
     {
