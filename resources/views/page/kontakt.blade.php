@@ -11,7 +11,7 @@
         <div class="col-md-6 mt-3 mt-md-0">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-              <li class="breadcrumb-item"><a class="text-dark" href="#"><i class="las la-home me-1"></i>Start</a>
+              <li class="breadcrumb-item"><a class="text-dark" href="/"><i class="las la-home me-1"></i>Start</a>
               </li>
               <li class="breadcrumb-item">Strona</li>
               <li class="breadcrumb-item active text-primary" aria-current="page">Kontakt</li>
@@ -145,4 +145,19 @@
 
   <!--body content end--> 
 
+@endsection
+
+
+
+@section('meta_tag')
+<title>Cyberkultura - Skontaktuj się z nami, telefon, e-mail, formularz kontaktowy</title>
+
+<meta property="og:title" content="Cyberkultura - Skontaktuj się z nami, telefon, e-mail, formularz kontaktowy">
+<meta property="og:description" content="Skontaktuj się znami, złoż zamówienie, przeslij zlecenie e-mailem. Spytaj o wycenę">
+<meta property="og:image" content="https://cyberkultura.pl/{{ $path_m }}">
+<meta property="og:url" content="http://cyberkultura.pl/oferta/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Cyberkultura - pieczątki, druk/ksero A3/A4 wizytówki zaproszenia ślubne i okolicznościowe, winietki Kutno">
+<meta property="fb:app_id" content="1234567890">
 @endsection

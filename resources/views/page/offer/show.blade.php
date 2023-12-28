@@ -41,7 +41,9 @@
       <div class="row">
         <div class="col-lg-6 col-12 order-lg-1">
           <ul id="imageGallery">
-
+@php
+  $path_m  = 'resources/offers/cyberkultura_oferta.webp';
+@endphp
             @foreach ($offer->photo as $photo)
 
                 @php
@@ -103,17 +105,14 @@
             </div>
             <div class="d-sm-flex align-items-center mt-5">
               <button class="btn btn-primary btn-animated me-sm-4 mb-3 mb-sm-0"><i class="las la-shopping-cart me-1"></i>Zapytaj o produkt</button>
-              <a class="btn btn-animated btn-dark" href="#"> <i class="lar la-heart me-1"></i>Dodaj do ulubionych
-              </a>
             </div>
             <div class="d-flex align-items-center border-top border-bottom py-4 mt-5">
-              <h6 class="mb-0 me-4">Udostępnij:</h6>
               <ul class="list-inline">
-            <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-facebook"></i></a>
-            </li>
-            <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-instagram"></i></a>
-            </li>
-          </ul>
+                  <li class="list-inline-item">
+                    <div id="fb-root"></div>
+                    <div class="fb-share-button" data-href="{{ route('page.offer.show',[$offer->id,'name'=>$offer->translations[0]->name]) }}" data-layout="button_count"></div>
+                  </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -155,49 +154,18 @@
                     <p class="mb-5">{!!  $offer->translations[0]->description !!}</a>
                   </div>
                 </div>
-              </div>
-              <div role="tabpanel" class="tab-pane fade" id="tab3-2">
-                <table class="table table-bordered mb-0">
-                  <tbody>
-                    <tr>
-                      <td>Size</td>
-                      <td>Small, Medium, Large &amp; Extra Large</td>
-                    </tr>
-                    <tr>
-                      <td>Color</td>
-                      <td>Yellow, Red, Blue, Green &amp; Black</td>
-                    </tr>
-                    <tr>
-                      <td>Chest</td>
-                      <td>38 inches</td>
-                    </tr>
-                    <tr>
-                      <td>Waist</td>
-                      <td>20 cm</td>
-                    </tr>
-                    <tr>
-                      <td>Length</td>
-                      <td>35 cm</td>
-                    </tr>
-                    <tr>
-                      <td>Fabric</td>
-                      <td>Cotton, Silk &amp; Synthetic</td>
-                    </tr>
-                    <tr>
-                      <td>Warranty</td>
-                      <td>6 Months</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div role="tabpanel" class="tab-pane fade" id="tab3-3">
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab3-2">
+                <p class="mb-5">{!!  $offer->translations[0]->specyfication !!}</a>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab3-3">
                 <div class="row align-items-center">
                   <div class="col-md-6">
                     <div class="shadow-sm text-center p-5">
-                      <h4>Based on 3 Reviews</h4>
-                      <h5>Average</h5>
+                      <h4>Opinie klientów</h4>
+                      <h5>Średnia</h5>
                       <h4>4.0</h4>
-                      <h6>(03 Reviews)</h6>
+                      <h6>{{ $commentsCount }}</h6>
                     </div>
                   </div>
                   <div class="col-md-6 mt-3 mt-lg-0">
@@ -210,14 +178,7 @@
                           </div>
                         </div><span class="text-muted ms-3">90%</span>
                       </div>
-                      <div class="d-flex align-items-center mb-2">
-                        <div class="text-nowrap me-3">4 Star</div>
-                        <div class="w-100">
-                          <div class="progress" style="height: 5px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div><span class="text-muted ms-3">60%</span>
-                      </div>
+                     
                       <div class="d-flex align-items-center mb-2">
                         <div class="text-nowrap me-3">3 Star</div>
                         <div class="w-100">
@@ -260,38 +221,11 @@
                       <p class="mb-0 mt-3">Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi.</p>
                     </div>
                   </div>
-                  <div class="d-sm-flex mt-5">
-                    <div class="flex-shrink-0">
-                      <img class="img-fluid align-self-center rounded me-md-3 mb-3 mb-md-0" alt="image" src="assets/images/thumbnail/02.jpg">
-                    </div>
-                    <div class="flex-grow-1 ms-sm-3 mt-4 mt-sm-0">
-                      <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Scott Jones</h6>
-                        <small class="mx-3 text-muted">March 15, 2020</small>
-                        <div class="star-rating"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
-                        </div>
-                      </div>
-                      <p class="mb-0 mt-3">Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi.</p>
-                    </div>
-                  </div>
-                  <div class="d-sm-flex mt-5">
-                    <div class="flex-shrink-0">
-                      <img class="img-fluid align-self-center rounded me-md-3 mb-3 mb-md-0" alt="image" src="assets/images/thumbnail/03.jpg">
-                    </div>
-                    <div class="flex-grow-1 ms-sm-3 mt-4 mt-sm-0">
-                      <div class="d-flex align-items-center">
-                        <h6 class="mb-0">Amber Holmes</h6>
-                        <small class="mx-3 text-muted">February 26, 2020</small>
-                        <div class="star-rating"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
-                        </div>
-                      </div>
-                      <p class="mb-0 mt-3">Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi.</p>
-                    </div>
-                  </div>
+
                 </div>
                 <div class="mt-8 shadow p-5">
                   <div class="section-title mb-3">
-                    <h4>Add a review</h4>
+                    <h4>Dodaj ocenę i komentarz</h4>
                   </div>
                   <form id="contact-form" class="row" method="post" action="contact.php">
                     <div class="messages"></div>
@@ -305,7 +239,7 @@
                     </div>
                     <div class="form-group clearfix col-12">
                       <select class="form-select form-control">
-                        <option value="">Rating -- Select</option>
+                        <option value="">Ocena -- Wybierz</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -361,4 +295,18 @@
 
     <!--body content end-->
 @endsection
+
+@section('meta_tag')
+<title>Cyberkultura - {{ $offer->translations[0]->name }} - {{ $offer->translations[0]->short_description }} </title>
+
+<meta property="og:title" content="Cyberkultura oferta - {{ $offer->translations[0]->name.' - '.strip_tags($offer->translations[0]->short_description) }}">
+<meta property="og:description" content="{{ strip_tags($offer->translations[0]->lead) }}">
+<meta property="og:image" content="https://cyberkultura.pl/{{ $path_m }}">
+<meta property="og:url" content="http://cyberkultura.pl/oferta/{{ $offer->id }}/{{ $offer->translations[0]->link }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Cyberkultura - pieczątki, druk/ksero A3/A4 wizytówki zaproszenia ślubne i okolicznościowe, winietki Kutno">
+<meta property="fb:app_id" content="1234567890">
+@endsection
+
 

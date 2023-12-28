@@ -31,5 +31,9 @@ class Offer extends Model
     {
         return $this->belongsTo(OfferCategory::class, 'id');
     }
+    public function comments()
+    {
+        return $this->hasMany(OfferComment::class,'offers_id','id');
+    }
 
 }

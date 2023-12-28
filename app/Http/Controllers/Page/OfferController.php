@@ -33,12 +33,23 @@ class OfferController extends Controller
             ->orderBy('offers_translations.name') // Sortuj według nazwy w tłumaczeniu
             ->get();
 
-            $offer = Offer::with(['translations' => function($query) {
+            $offer1 = Offer::with(['translations' => function($query) {
                 $query->where('offers_translations.locale', 'pl');
             }])->find($offer->id);
 
+            $offer2 = Offer::with('comments')
+            ->withAvg('comments', 'rating')
+            ->findOrFail($offer->id);
 
-        return view('page.offer.show', compact('offer','offers'));
+            // Liczba komentarzy
+            $commentsCount = $offer2->comments->count();
+
+            // Średnia ocena
+            $averageRating = $offer2->comments_avg_rating;
+
+            
+
+        return view('page.offer.show', compact('offer','offers','commentsCount','averageRating'));
     }
 
 }

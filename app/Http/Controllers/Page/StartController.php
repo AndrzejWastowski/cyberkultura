@@ -37,8 +37,8 @@ class StartController extends Controller
         //    $query->where('offers_translations.locale', 'pl');
         //}])->find($offer->id);
 
+        $path_m = 'resources/cyberkultura_reklama.webp';
 
-
-        return view('page.start',compact('productsCategory','offers'));
+        return view('page.start',compact('productsCategory','offers','path_m'));
     }
 }
