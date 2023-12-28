@@ -26,6 +26,15 @@
     <link href="{{ asset('assets/css/slick.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/slick-theme.css') }}" rel="stylesheet" type="text/css" />
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJGVLCJ1WZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YJGVLCJ1WZ');
+</script>
 <body>
 
         <div class="page-wrapper">
