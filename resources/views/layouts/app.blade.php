@@ -27,13 +27,13 @@
     <link href="{{ asset('assets/css/slick-theme.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJGVLCJ1WZ"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HZ1YPH1ZM7"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YJGVLCJ1WZ');
+  gtag('config', 'G-HZ1YPH1ZM7');
 </script>
 <body>
 
