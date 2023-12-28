@@ -18,7 +18,8 @@ class OfferTranslation extends Model
         'link',
         'locale',
         'short_description',
-        'description'];
+        'description',
+        'specyfication'];
 
     public function offers()
     {

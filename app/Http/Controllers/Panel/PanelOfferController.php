@@ -74,6 +74,7 @@ class PanelOfferController extends Controller
             'link' => 'required',
             'short_description'  => 'required',
             'description' => 'required',
+            'specyfication' => 'required',
             'category_id' => 'required',
             'top' => 'top',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4096',
@@ -97,6 +98,7 @@ class PanelOfferController extends Controller
         $offerTranslation->link = $request->input('link');
         $offerTranslation->short_description = $request->input('short_description');
         $offerTranslation->description = $request->input('description');
+        $offerTranslation->specyfication = $request->input('specyfication');
         $offerTranslation->locale = $request->input('locale');
         $offerTranslation->save();
         $pom = 0;
@@ -205,6 +207,7 @@ class PanelOfferController extends Controller
             'short_description' => 'required',
             'lead' => 'nullable',
             'description' => 'nullable',
+            'specyfication' => 'nullable',
             'images' => 'array',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
@@ -231,6 +234,7 @@ class PanelOfferController extends Controller
             'offers_id',
             'locale',
             'short_description',
+            'specyfication',
             'lead',
             'description',
         ]);

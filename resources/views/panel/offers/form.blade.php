@@ -98,6 +98,19 @@
                     <!-- End Quill Editor Full -->
 
                 </div>
+                <div class="card-body">
+                    <h5 class="card-title">Specyfikacja</h5>
+
+                    <!-- Quill Editor Full -->
+                    <p>specyfikacja - do zakładki z tabulacją na dole, kilka parametrów technicznych</p>
+                    <div id="specyfication-editor" style="block-size: 250px;">
+                        <p>{!! $offer->specyfication !!} </p>
+                    </div>
+                    <input type="hidden" name="specyfication" id="hidden-specyfication">
+
+                    <!-- End Quill Editor Full -->
+
+                </div>
             </div>
 
             <hr>
@@ -296,10 +309,56 @@
                 theme: 'snow'
             }
 
+            var specyficationEditorOptions = {
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{
+                            'color': []
+                        }, {
+                            'background': []
+                        }],
+                        [{
+                            'align': 'left'
+                        }, {
+                            'align': 'center'
+                        }, {
+                            'align': 'right'
+                        }, {
+                            'align': 'justify'
+                        }],
+                        ['blockquote', 'code-block'],
+                        [{
+                            'header': [1, 2, 3, 4, 5, 6, false]
+                        }],
+                        [{
+                            'list': 'ordered'
+                        }, {
+                            'list': 'bullet'
+                        }],
+                        [{
+                            'script': 'sub'
+                        }, {
+                            'script': 'super'
+                        }],
+                        [{
+                            'indent': '-1'
+                        }, {
+                            'indent': '+1'
+                        }],
+                        ['clean']
+                    ]
+                },
+
+                theme: 'snow'
+            };
+
             // Inicjalizacja edytora dla pola "Description"
             var descriptionEditor = new Quill('#description-editor', descriptionEditorOptions);
             // Inicjalizacja edytora dla pola "lead"
             var leadEditor = new Quill('#lead-editor', leadEditorOptions);
+
+            var specyficationEditor = new Quill('#specyfication-editor', specyficationEditorOptions);
 
             // Pobierz formularz
             var form = document.getElementById('myForm');
@@ -314,6 +373,9 @@
 
                 var leadContent = leadEditor.root.innerHTML;
                 document.getElementById('hidden-lead').value = leadContent;
+
+                var specyficationContent = specyficationEditor.root.innerHTML;
+                document.getElementById('hidden-specyfication').value = specyficationContent;
             }
         });
     </script>
