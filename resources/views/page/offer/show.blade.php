@@ -151,12 +151,12 @@
                   <div class="col-md-7 mt-5 mt-lg-0">
                     <h3 class="mb-3">{{  $offer->translations[0]->name }}</h3>
                     {!!  $offer->translations[0]->lead !!}
-                    <p class="mb-5">{!!  $offer->translations[0]->description !!}</a>
+                    <p class="mb-5">{!!  $offer->translations[0]->description !!}</p>
                   </div>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="tab3-2">
-                <p class="mb-5">{!!  $offer->translations[0]->specyfication !!}</a>
+                <p >{!!  $offer->translations[0]->specyfication !!}</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="tab3-3">
                 <div class="row align-items-center">
