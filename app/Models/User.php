@@ -71,7 +71,7 @@ class User extends Authenticatable
      */
     public function isUser()
     {
-        return $this->permission == 0;
+        return $this->permission == 1;
     }
 
     /**
@@ -82,7 +82,7 @@ class User extends Authenticatable
 
     public function isEditor()
     {
-        return $this->permission == 1;
+        return $this->permission == 2;
     }
 
 /**
@@ -93,7 +93,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->permission == 2;
+        return $this->permission == 3;
     }
 
     /**

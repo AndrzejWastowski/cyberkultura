@@ -10,17 +10,17 @@
           </div>
           <div class="d-flex align-items-center">
             <div class="text-light">
-              <small><a class="btn-link text-light" href="facebook"><i class="la la-facebook ic-1x text-primary me-1 align-middle"></i></a></small> 
-              <small><a class="btn-link text-light" href="instagram"><i class="la la-instagram ic-1x text-primary me-1 align-middle"></i></a></small>               
-              <small><a class="btn-link text-light" href="linkedin"><i class="la la-linkedinic-1x text-primary me-1 align-middle"></i></a></small> 
-              <small><i class="las la-phone-volume ic-1x text-primary me-1 align-middle"></i> Tel: <a class="btn-link text-light" href="tel:+48690313800">+48 690 313 800</a></small> 
-            </div>            
+              <small><a class="btn-link text-light" href="facebook"><i class="la la-facebook ic-1x text-primary me-1 align-middle"></i></a></small>
+              <small><a class="btn-link text-light" href="instagram"><i class="la la-instagram ic-1x text-primary me-1 align-middle"></i></a></small>
+              <small><a class="btn-link text-light" href="linkedin"><i class="la la-linkedinic-1x text-primary me-1 align-middle"></i></a></small>
+              <small><i class="las la-phone-volume ic-1x text-primary me-1 align-middle"></i> Tel: <a class="btn-link text-light" href="tel:+48690313800">+48 690 313 800</a></small>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
- 
+
   <div class="shadow-sm py-md-3 py-2">
     <div class="container">
       <div class="row align-items-center">
@@ -28,7 +28,6 @@
         <div class="col-md-6">
           <div class="social-icons d-none d-md-block">
             <ul class="list-inline">
-            
               <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-instagram"></i></a>
               </li>
               <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-twitter"></i></a>
