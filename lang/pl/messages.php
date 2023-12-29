@@ -29,7 +29,7 @@ return [
     'add_to_cart' => 'Do Koszyka',
     'observed' => 'Obserwuj',
     'share' => 'Udostępnij',
-    'technical_specyfication' => 'Specyfikacja Techniczna',
+    'technical_specification' => 'Specyfikacja Techniczna',
     'availability' => 'dostępność',
     'Availability' => 'Dostępność',
     'name' => 'nazwa',

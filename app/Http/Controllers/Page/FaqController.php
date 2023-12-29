@@ -13,11 +13,11 @@ class FaqController extends Controller
     public function show(Faq $faq)
     {
 
-        return view('page.subpages.show', compact('news'));
+        return view('page.faq.show', compact('faq'));
     }
     public function lists()
     {
-
-        return view('page.subpages.show', compact('news'));
+        $faqs = ['question'=>'Co i jak?','answer'=>'na bok a czasem na wspak'];
+        return view('page.faq.list', compact('faqs'));
     }
 }

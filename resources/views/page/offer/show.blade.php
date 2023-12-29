@@ -104,7 +104,9 @@
 
             </div>
             <div class="d-sm-flex align-items-center mt-5">
-              <button class="btn btn-primary btn-animated me-sm-4 mb-3 mb-sm-0"><i class="las la-shopping-cart me-1"></i>Zapytaj o produkt</button>
+              <form name="send_zapytanie" method="POST" action="{{ route('page.offer.form.zapytanie') }}">
+                <button class="btn btn-primary btn-animated me-sm-4 mb-3 mb-sm-0" type="submit" sender><i class="las la-shopping-cart me-1"></i>Zapytaj o produkt</button>
+              </form>
             </div>
             <div class="d-flex align-items-center border-top border-bottom py-4 mt-5">
               <ul class="list-inline">
@@ -156,7 +158,7 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="tab3-2">
-                <p >{!!  $offer->translations[0]->specyfication !!}</p>
+                <p >{!!  $offer->translations[0]->specification !!}</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="tab3-3">
                 <div class="row align-items-center">

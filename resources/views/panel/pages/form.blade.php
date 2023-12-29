@@ -55,6 +55,15 @@
                     <!-- End Quill Editor Full -->
 
                 </div>
+                <div class="form-group">
+                    <label for="pages_photo">Zdjęcie poglądowe do podstrony:</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="current_photo">Aktualne zdjęcie:</label>
+                   
+                    <img src="/resources/subpage/{{ $page->image }}" alt="{{ $page->image }}" class="img-fluid">
+                </div>
             </div>
 
             <div class="text-center">
@@ -67,19 +76,8 @@
 
 @section('script')
     <script>
-        //ustawiamy datę
-        function getCurrentDatetime() {
-            const now = new Date();
-            let month = (now.getMonth() + 1).toString().padStart(2, '0');
-            let day = now.getDate().toString().padStart(2, '0');
-            let hours = now.getHours().toString().padStart(2, '0');
-            let minutes = now.getMinutes().toString().padStart(2, '0');
-            return `${now.getFullYear()}-${month}-${day}T${hours}:${minutes}`;
-        }
 
-
-
-        document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function() {
 
 
             // Konfiguracja edytora dla pola "Description"
@@ -163,7 +161,7 @@
                 theme: 'snow'
             }
 
-            var specyficationEditorOptions = {
+            var specificationEditorOptions = {
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline', 'strike'],
@@ -212,7 +210,7 @@
             // Inicjalizacja edytora dla pola "lead"
             var leadEditor = new Quill('#lead-editor', leadEditorOptions);
 
-            var specyficationEditor = new Quill('#specyfication-editor', specyficationEditorOptions);
+            var specificationEditor = new Quill('#specification-editor', specificationEditorOptions);
 
             // Pobierz formularz
             var form = document.getElementById('myForm');
@@ -228,8 +226,8 @@
                 var leadContent = leadEditor.root.innerHTML;
                 document.getElementById('hidden-lead').value = leadContent;
 
-                var specyficationContent = specyficationEditor.root.innerHTML;
-                document.getElementById('hidden-specyfication').value = specyficationContent;
+                var specificationContent = specificationEditor.root.innerHTML;
+                document.getElementById('hidden-specification').value = specificationContent;
             }
         });
     </script>

@@ -32,7 +32,7 @@
         <div class="col-lg-8">
           <div class="mb-5">
             <h6 class="text-primary mb-1">— Kontakt</h6>
-            <h3 class="mb-0">Zanim napiszesz, sprawdź: <a href="/faq">"FAQ - pytania i odpowiedzi"</a>.</h3>
+            <h3 class="mb-0">Zanim napiszesz, sprawdź: <a href="{{ route('page.faq') }}">"FAQ - pytania i odpowiedzi"</a>.</h3>
           </div>
           <form id="contact-form" class="row" method="post" action="php/contact.php">
               <div class="messages"></div>

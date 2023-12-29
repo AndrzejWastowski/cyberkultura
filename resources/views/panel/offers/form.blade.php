@@ -103,10 +103,10 @@
 
                     <!-- Quill Editor Full -->
                     <p>specyfikacja - do zakładki z tabulacją na dole, kilka parametrów technicznych</p>
-                    <div id="specyfication-editor" style="block-size: 250px;">
-                        <p>{!! $offer->specyfication !!} </p>
+                    <div id="specification-editor" style="block-size: 250px;">
+                        <p>{!! $offer->specification !!} </p>
                     </div>
-                    <input type="hidden" name="specyfication" id="hidden-specyfication">
+                    <input type="hidden" name="specification" id="hidden-specification">
 
                     <!-- End Quill Editor Full -->
 
@@ -309,7 +309,7 @@
                 theme: 'snow'
             }
 
-            var specyficationEditorOptions = {
+            var specificationEditorOptions = {
                 modules: {
                     toolbar: [
                         ['bold', 'italic', 'underline', 'strike'],
@@ -358,7 +358,7 @@
             // Inicjalizacja edytora dla pola "lead"
             var leadEditor = new Quill('#lead-editor', leadEditorOptions);
 
-            var specyficationEditor = new Quill('#specyfication-editor', specyficationEditorOptions);
+            var specificationEditor = new Quill('#specification-editor', specificationEditorOptions);
 
             // Pobierz formularz
             var form = document.getElementById('myForm');
@@ -374,8 +374,8 @@
                 var leadContent = leadEditor.root.innerHTML;
                 document.getElementById('hidden-lead').value = leadContent;
 
-                var specyficationContent = specyficationEditor.root.innerHTML;
-                document.getElementById('hidden-specyfication').value = specyficationContent;
+                var specificationContent = specificationEditor.root.innerHTML;
+                document.getElementById('hidden-specification').value = specificationContent;
             }
         });
     </script>

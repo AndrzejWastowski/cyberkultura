@@ -57,18 +57,19 @@ Route::get('/greeting/{locale}', function (string $locale) {
     // ...
 });
 
-
-
 Route::get('/home',     [HomeController::class, 'index'])->name('page.home');
 
 Route::get('/kontakt',  [ContactController::class, 'index'])->name('page.contact');
 Route::get('/o_firmie',  [PageController::class, 'index'])->name('page.about');
 Route::get('/oferta',   [OfferController::class, 'index'])->name('page.offer');
+Route::post('/oferta/formularz/zapytanie',   [OfferController::class, 'show'])->name('page.offer.form.zapytanie');
+Route::post('/oferta/formularz/zapytanie/send',   [OfferController::class, 'show'])->name('page.offer.form.send');
 Route::get('/oferta/{offer}/{name}',   [OfferController::class, 'show'])->name('page.offer.show');
 Route::get('/oferta/{offer}/{name}/{subcat}',   [OfferController::class, 'show'])->name('page.offer.show.detail');
 Route::get('/oferta/komentarz/send',   [OfferController::class, 'comment_send'])->name('page.offer.comment_send');
 
-Route::get('/faq',   [FaqController::class, 'show'])->name('page.faq');
+Route::get('/faq',   [FaqController::class, 'lists'])->name('page.faq');
+Route::get('/faq/{question}',   [FaqController::class, 'show'])->name('page.faq.show');
 //Route::get('/instagram-photos', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
 //Route::get('/instagrams', [InstagramController::class, 'getInstagramPhotos'])->name('page.instagram_subpage');
 Route::get('/instagram', [InstagramController::class,'show'])->name('page.instagram_cyberkultura');
@@ -81,6 +82,9 @@ Route::get('/news/{news}',   [NewsController::class, 'show'])->name('page.news.s
 Route::get('/pd/{pages}/', [PageController::class, 'show'])->name('page.subpage');
 Route::get('/pd/{pages}/', [PageController::class, 'show'])->name('page.pages');
 Route::get('/pd/lista', [PageController::class, 'lists'])->name('page.subpage.list');
+
+// routes/web.php
+
 
 
 Route::get('/sitemap', [SitemapController::class, 'sitemap'])->name('404');

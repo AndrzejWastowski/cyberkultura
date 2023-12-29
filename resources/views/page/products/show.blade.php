@@ -129,7 +129,7 @@
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-item nav-link active ms-0" id="nav-tab1" data-bs-toggle="tab" data-bs-target="#tab3-1" type="button" role="tab" aria-selected="true">{{ trans('messages.products_description') }}</a>
-                                    <a class="nav-item nav-link" id="nav-tab2" data-bs-toggle="tab" data-bs-target="#tab3-2" type="button" role="tab" aria-selected="false">{{ trans('messages.technical_specyfication') }}</a>
+                                    <a class="nav-item nav-link" id="nav-tab2" data-bs-toggle="tab" data-bs-target="#tab3-2" type="button" role="tab" aria-selected="false">{{ trans('messages.technical_specification') }}</a>
                                 </div>
                             </nav>
                             <!-- Tab panes -->
