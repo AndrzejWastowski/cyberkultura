@@ -80,7 +80,6 @@ Route::get('/news/{news}',   [NewsController::class, 'show'])->name('page.news.s
 
 
 Route::get('/pd/{pages}/', [PageController::class, 'show'])->name('page.subpage');
-Route::get('/pd/{pages}/', [PageController::class, 'show'])->name('page.pages');
 Route::get('/pd/lista', [PageController::class, 'lists'])->name('page.subpage.list');
 
 // routes/web.php

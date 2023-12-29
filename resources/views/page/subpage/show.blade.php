@@ -8,7 +8,7 @@
       <div class="breadcrumb-hero">
         <div class="container">
           <div class="breadcrumb-hero">
-            {{ dd($page) }}
+
             <h2>{{ $page->title }}</h2>
             <p>{!! $page->lead !!}</p>
           </div>
@@ -38,7 +38,7 @@
             </div>
           </div>
           <div class="col-lg-4">
-            @include('page.subpages.sidebar')
+            @include('page.subpage.sidebar')
           </div><!-- End blog sidebar -->
         </div>
       </div>

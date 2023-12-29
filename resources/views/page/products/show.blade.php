@@ -34,9 +34,7 @@
     <!--body content start-->
 
     <div class="page-content">
-
         <!--product details start-->
-
         <section>
             <div class="container">
                 <div class="row">
@@ -161,8 +159,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-
-
                                 </div>
                             </div>
                         </div>

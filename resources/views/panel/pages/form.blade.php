@@ -51,9 +51,7 @@
                         <p>{!! $page->description !!}</p>
                     </div>
                     <input type="hidden" name="description" id="hidden-description">
-
                     <!-- End Quill Editor Full -->
-
                 </div>
                 <div class="form-group">
                     <label for="pages_photo">Zdjęcie poglądowe do podstrony:</label>
@@ -61,7 +59,6 @@
                 </div>
                 <div class="form-group">
                     <label for="current_photo">Aktualne zdjęcie:</label>
-                   
                     <img src="/resources/subpage/{{ $page->image }}" alt="{{ $page->image }}" class="img-fluid">
                 </div>
             </div>

@@ -23,9 +23,9 @@
                   <ul class="navbar-nav list-unstyled mb-0">
                     <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.start') }}">Start</a>
                     </li>
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.pages',['about']) }}">O firmie</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['about']) }}">O firmie</a>
                     </li>
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.pages',['faq']) }}">Faq</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['faq']) }}">Faq</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('page.contact') }}">Kontakt</a>
                     </li>
@@ -53,14 +53,14 @@
                 <div class="col-12 col-sm-4 mt-6 mt-sm-0 navbar-dark">
                   <h5 class="mb-4 text-white">Informacje</h5>
                   <ul class="navbar-nav list-unstyled mb-0">
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.pages',['polityka_prywatnosci']) }}">Polityka prywatności</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['polityka_prywatnosci']) }}">Polityka prywatności</a>
                     </li>
                     </li>
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.pages',['regulamin']) }}">Regulamin strony</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['regulamin']) }}">Regulamin strony</a>
                     </li>
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.pages',['reklamacje']) }}">Reklamacje i zwroty</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['reklamacje']) }}">Reklamacje i zwroty</a>
                     </li>
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.pages',['rodo']) }}">Rodo</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['rodo']) }}">Rodo</a>
                     </li>
                   </ul>
                 </div>

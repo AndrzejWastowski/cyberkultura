@@ -94,7 +94,7 @@ class PanelPageController extends Controller
         $page->image = $uniqueId;
         $page->save();
 
-        return redirect()->route('page.pages.index')->with('success', 'Page created successfully');
+        return redirect()->route('page.subpage')->with('success', 'Page created successfully');
     }
 
     public function edit($page)

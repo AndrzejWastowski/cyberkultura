@@ -30,6 +30,6 @@ class PageController extends Controller
             return redirect()->route('404');
         }
 
-        return view('page.subpages.show', compact('page'));
+        return view('page.subpage.show', compact('page'));
     }
 }
