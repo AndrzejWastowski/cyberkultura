@@ -8,6 +8,7 @@
       <div class="breadcrumb-hero">
         <div class="container">
           <div class="breadcrumb-hero">
+            {{ dd($page) }}
             <h2>{{ $page->title }}</h2>
             <p>{!! $page->lead !!}</p>
           </div>
@@ -37,11 +38,22 @@
             </div>
           </div>
           <div class="col-lg-4">
-
             @include('page.subpages.sidebar')
-  
           </div><!-- End blog sidebar -->
         </div>
       </div>
     </section>
+@endsection
+
+@section('meta_tag')
+<title>Cyberkultura - Skontaktuj się z nami, telefon, e-mail, formularz kontaktowy</title>
+
+<meta property="og:title" content="Cyberkultura - {{ $page->title }}">
+<meta property="og:description" content="{{ $page->lead }}">
+<meta property="og:image" content="https://cyberkultura.pl/resources/subpage/{{ $page->image }}">
+<meta property="og:url" content="http://cyberkultura.pl/{{ route('page.subpage',['pages'=>$page->link]) }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Cyberkultura - pieczątki, druk/ksero A3/A4 wizytówki zaproszenia ślubne i okolicznościowe, winietki Kutno">
+<meta property="fb:app_id" content="1234567890">
 @endsection

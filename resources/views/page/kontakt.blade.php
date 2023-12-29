@@ -108,14 +108,13 @@
             </div>
           </div>
           <ul class="list-inline">
-            <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-facebook"></i></a></li>            
+            <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="https://www.facebook.com/cyberkultura/"><i class="la la-facebook"></i></a></li>
             <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-instagram"></i></a></li>
             <li class="list-inline-item"><a class="bg-white shadow-sm rounded p-2" href="#"><i class="la la-linkedin"></i></a></li>
           </ul>
           </div>
         </div>
       </div>
-      
     </div>
   </section>
   
@@ -123,8 +122,8 @@
     <div class="container">
       <hr class="mt-0 mb-10">
       <div class="row justify-content-center text-center mb-5">
-        <div class="col-lg-8">        
-          <div> 
+        <div class="col-lg-8">
+          <div>
             <h6 class="text-primary mb-1">— Sprawdź trasę dojazdu</h6>
             <h2 class="mb-0">Lokalizacja sklepu stacjonarnego</h2>
           </div>
@@ -143,7 +142,7 @@
 
   </div>
 
-  <!--body content end--> 
+  <!--body content end-->
 
 @endsection
 
@@ -154,7 +153,7 @@
 
 <meta property="og:title" content="Cyberkultura - Skontaktuj się z nami, telefon, e-mail, formularz kontaktowy">
 <meta property="og:description" content="Skontaktuj się znami, złoż zamówienie, przeslij zlecenie e-mailem. Spytaj o wycenę">
-<meta property="og:image" content="https://cyberkultura.pl/{{ $path_m }}">
+<meta property="og:image" content="https://cyberkultura.pl/resources/cyberkultura_reklama.webp">
 <meta property="og:url" content="http://cyberkultura.pl/oferta/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">

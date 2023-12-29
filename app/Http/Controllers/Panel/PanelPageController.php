@@ -52,7 +52,7 @@ class PanelPageController extends Controller
         $pages = Page::all();
         $page = new Page();
         $action = "create";
-        return view('panel.pages.form_pages',compact('page','action','pages'));
+        return view('panel.pages.form',compact('page','action','pages'));
     }
 
     public function store(Request $request)
@@ -102,7 +102,7 @@ class PanelPageController extends Controller
         $pages = Page::all();
         $page = Page::findOrFail($page);
         $action = "edit";
-        return view('panel.pages.form_pages',compact('page','action','pages'));
+        return view('panel.pages.form',compact('page','action','pages'));
     }
 
     public function update(Request $request, $id)
