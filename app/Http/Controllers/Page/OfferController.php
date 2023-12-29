@@ -19,8 +19,8 @@ class OfferController extends Controller
         $offers = Offer::with(['translations' => function($query) {
             $query->where('locale', 'pl');
         }])->get();;
-
-        return view('page.offer.index', compact('offers'));
+        $path_m = '/resources/cyberkultura_reklama.webp';
+        return view('page.offer.index', compact('offers','path_m'));
     }
 
  

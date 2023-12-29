@@ -12,9 +12,9 @@ class PageController extends Controller
 
 
 
-    public function show(Request $request)
+    public function show($pages)
     {
-        $link = request()->route()->parameter('page');
+
 
         //      DB::table('page')->where('link', 'like', "%$page%")->first(),
         //        $page = Page::findOrFail($request->id);
@@ -24,7 +24,7 @@ class PageController extends Controller
                case 'panel': $this->callAction('App\Http\Controllers\PanelController@index',['id'=>1]);
            }
     */
-        $page = Page::where('link', 'like', "%$link%")->first();
+        $page = Page::where('link',$pages)->first();
 
         if (!$page) {
             return redirect()->route('404');

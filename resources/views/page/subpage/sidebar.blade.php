@@ -2,16 +2,15 @@
     <h3 class="sidebar-title">Podstrony</h3>
     <div class="sidebar-item categories">
       <ul>
-       <li>link do podstrony</li>
+        <li><a href="{{ route('page.subpage',['pages'=>'about'])  }}">O firmie </li>
+        <li><a href="{{ route('page.subpage',['pages'=>'regulamin'])  }}">Regulamin strony</li>
+        <li><a href="{{ route('page.subpage',['pages'=>'polityka_prywatnosci'])  }}">Polityka prywatności</li>
+          <li><a href="{{ route('page.subpage',['pages'=>'reklamacje'])  }}">Reklamacje i zwroty</li>
+        <li><a href="{{ route('page.faq')  }}">FAQ - najczęściej zadawane pytania</li>
+        <li><a href="{{ route('page.contact')  }}">Kontakt</li>
+        
       </ul>
     </div><!-- End sidebar categories-->
 
-    <h3 class="sidebar-title">Tags</h3>
-    <div class="sidebar-item tags">
-      <ul>
-        <li><a href="#">Wszystkie wiadomości</a></li>
-        <li><a href="#">Ciekawostki</a></li>
-        <li><a href="#">Komunikaty</a></li>
-      </ul>
-    </div><!-- End sidebar tags-->
+   
   </div>
