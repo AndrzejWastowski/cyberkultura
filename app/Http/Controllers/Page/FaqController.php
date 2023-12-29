@@ -17,7 +17,9 @@ class FaqController extends Controller
     }
     public function lists()
     {
-        $faqs = ['question'=>'Co i jak?','answer'=>'na bok a czasem na wspak'];
+        $faqs = Faq::all();
+     
+
         return view('page.faq.list', compact('faqs'));
     }
 }
