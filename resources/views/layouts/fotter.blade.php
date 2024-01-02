@@ -25,7 +25,7 @@
                     </li>
                     <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['about']) }}">O firmie</a>
                     </li>
-                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.subpage',['faq']) }}">Faq</a>
+                    <li class="mb-3 nav-item"><a class="nav-link" href="{{ route('page.faq') }}">Faq</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('page.contact') }}">Kontakt</a>
                     </li>
