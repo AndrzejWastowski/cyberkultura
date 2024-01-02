@@ -185,7 +185,7 @@
                                                     <!-- Links -->
                                                     <ul class="list-unstyled">
                                                         <li> <a
-                                                                href="{{ route('page.offer.show', ['33', 'Notesty_kalendarze_z_grawerem]) }}">Grawerowane notesy i kalendarze</a>
+                                                                href="{{ route('page.offer.show', ['33', 'notesty_kalendarze_z_grawerem']) }}">Grawerowane notesy i kalendarze</a>
                                                         </li>
                                                         <li> <a href="{{ route('page.offer.show', ['34', 'pudelka_prezentowe']) }}">Pudełka prezentowe</a>
                                                         </li>
