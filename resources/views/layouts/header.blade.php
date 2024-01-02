@@ -105,7 +105,7 @@
                                                                 href="{{ route('page.offer.show', ['2', 'name' => 'kserowanie']) }}">Kserowanie</a>
                                                         </li>
                                                         <li><a
-                                                                href="{{ route('page.offer.show', ['1', 'name' => 'zaproszenia okolicznosciowe']) }}">Zaproszenia</a>
+                                                                href="{{ route('page.offer.show', ['7', 'name' => 'zaproszenia okolicznosciowe']) }}">Zaproszenia</a>
                                                         </li>
                                                         <li><a
                                                                 href="{{ route('page.offer.show', ['8', 'name' => 'winietki']) }}">Winietki</a>
@@ -148,7 +148,7 @@
                                                                 href="{{ route('page.offer.show', ['22', 'name' => 'naklejki']) }}">Naklejki</a>
                                                         </li>
                                                         <li><a
-                                                                href="{{ route('page.offer.show', ['19', 'name' => 'kalendarze']) }}">Kalendarze</a>
+                                                                href="{{ route('page.offer.show', ['18', 'name' => 'kalendarze']) }}">Kalendarze</a>
                                                         </li>
                                                         <li><a
                                                                 href="{{ route('page.offer.show', ['16', 'name' => 'banery']) }}">Banery</a>
@@ -157,7 +157,7 @@
                                                                 href="{{ route('page.offer.show', ['17', 'name' => 'rollupy']) }}">Rollup</a>
                                                         </li>
                                                         <li><a
-                                                                href="{{ route('page.offer.show', ['15', 'name' => 'foldery']) }}">Foldery
+                                                                href="{{ route('page.offer.show', ['15', 'name' => 'teczki']) }}">Teczki
                                                                 / broszury</a></li>
                                                         <li><a
                                                                 href="{{ route('page.offer.show', ['27', 'name' => 'długopisy z nadrukiem']) }}">Długopisy
@@ -185,18 +185,15 @@
                                                     <!-- Links -->
                                                     <ul class="list-unstyled">
                                                         <li> <a
-                                                                href="{{ route('page.offer.show', ['33', 'wycinanie w sklejce']) }}">Wycinanie
-                                                                w sklejce / drewnie</a>
+                                                                href="{{ route('page.offer.show', ['33', 'Notesty_kalendarze_z_grawerem]) }}">Grawerowane notesy i kalendarze</a>
                                                         </li>
-                                                        <li> <a href="{{ route('page.offer.show', ['34', 'plexa']) }}">Wycinanie
-                                                                w plexy</a>
+                                                        <li> <a href="{{ route('page.offer.show', ['34', 'pudelka_prezentowe']) }}">Pudełka prezentowe</a>
                                                         </li>
                                                         <li> <a
                                                                 href="{{ route('page.offer.show', ['26', 'pieczatki']) }}">Pieczątki</a>
                                                         </li>
                                                         <li> <a
-                                                                href="{{ route('page.offer.show', ['34', 'prezenty']) }}">Pudełka
-                                                                prezentowe</a>
+                                                                href="{{ route('page.offer.show', ['31', 'topery']) }}">Topery na tort</a>
                                                         </li>
                                                         <li> <a
                                                                 href="{{ route('page.offer.show', ['35', 'puzle z własnym zdjęciem']) }}">Puzzle
@@ -217,9 +214,9 @@
                                                                 na tort</a>
                                                         </li>
                                                         <li> <a
-                                                                href="{{ route('page.offer.show', ['23', 'graweowanie']) }}">Grawertony</a>
+                                                                href="{{ route('page.offer.show', ['23', 'grawerowanie']) }}">Grawertony</a>
                                                         </li>
-                                                        <li> <a href="{{ route('page.offer.show', ['33', 'napisy']) }}">Notesy
+                                                        <li> <a href="{{ route('page.offer.show', ['33', 'notesy_kalendarze']) }}">Notesy
                                                                 / kalendarze</a>
                                                         </li>
                                                         <li> <a
@@ -227,8 +224,8 @@
                                                                 z napisami</a>
                                                         </li>
                                                         <li> <a
-                                                                href="{{ route('page.offer.show', ['28', 'breloczki wypalane w derewnie']) }}">Breloczki
-                                                                wypalane w drewnie</a>
+                                                                href="{{ route('page.offer.show', ['28', 'breloczki_ze_sklejki']) }}">Breloczki
+                                                                wypalane w sklejce</a>
                                                         </li>
                                                     </ul>
                                                 </div>
