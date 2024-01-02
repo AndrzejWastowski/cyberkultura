@@ -271,7 +271,7 @@
                                                                 href="{{ route('page.offer.show', ['30', 'name' => 'skanowanie_dokumentow']) }}">Skanowanie</a>
                                                         </li>
                                                         <li><a
-                                                                href="{{ route('page.offer.show', ['7', 'name' => 'laminowanie']) }}">Laminowanie</a>
+                                                                href="{{ route('page.offer.show', ['6', 'name' => 'laminowanie']) }}">Laminowanie</a>
                                                         </li>
                                                     </ul>
                                                 </div>
