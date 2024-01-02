@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\File;
+
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class PanelPageController extends Controller
 {
@@ -24,7 +25,6 @@ class PanelPageController extends Controller
         $pages = Page::all();
         return view('panel.pages.index', compact('pages'));
     }
-
 
 
     public function show(Request $request)
@@ -73,19 +73,19 @@ class PanelPageController extends Controller
 
         // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-        $img = Image::make($request->file('image')->path());
-        $img->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
+        // create an image manager instance with favored driver
 
-        $img = Image::make($request->file('image')->path());
-        $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
+        $manager = new ImageManager(new Driver());
+        // read image from filesystem
 
-        $img = Image::make($$request->file('image')->path());
-        $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-        })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'd.webp');
+        $img = $manager->read($request->file('image')->path());
+        $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
+
+        $img = $manager->read($request->file('image')->path());
+        $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
+
+        $img = $manager->read($request->file('image')->path());
+        $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
         $page = new Page();
         $page->title = $validatedData['title'];
@@ -131,19 +131,16 @@ class PanelPageController extends Controller
 
         // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-        $img = Image::make($request->file('image')->path());
-        $img->resize(350, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
+        $manager = new ImageManager(new Driver());
 
-        $img = Image::make($request->file('image')->path());
-        $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
+        $img = $manager->read($request->file('image')->path());
+        $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
 
-        $img = Image::make($request->file('image')->path());
-        $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-        })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'd.webp');
+        $img = $manager->read($request->file('image')->path());
+        $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
+
+        $img = $manager->read($request->file('image')->path());
+        $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
         $page->image = $uniqueId;
         }

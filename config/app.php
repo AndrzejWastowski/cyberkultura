@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 return [
 
@@ -170,6 +170,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Sitemap\SitemapServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -185,7 +186,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'Sitemap' => Spatie\Sitemap\SitemapFacade::class,
+
 
     ])->toArray(),
 

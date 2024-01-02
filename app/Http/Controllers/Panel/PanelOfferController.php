@@ -13,9 +13,11 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Intervention\Image\Facades\Image;
+
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -102,6 +104,8 @@ class PanelOfferController extends Controller
         $offerTranslation->locale = $request->input('locale');
         $offerTranslation->save();
         $pom = 0;
+
+        $manager = new ImageManager(new Driver());
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
 
@@ -119,20 +123,16 @@ class PanelOfferController extends Controller
                     File::makeDirectory($destinationPath, 0755, true, true);
                 }
 
-                // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
-                $img = Image::make($image->path());
-                $img->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save($destinationPath . '/' . $uniqueId . 'm.webp');
+                // read image from filesystem
 
-                $img = Image::make($image->path());
-                $img->fit(350, 350)->encode('webp')->save($destinationPath . '/' . $uniqueId . 'kw.webp');
+                $img = $manager->read($image->path());
+                $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
 
-                $img = Image::make($image->path());
-                $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('webp')->save($destinationPath . '/' . $uniqueId . 'd.webp');
+                $img = $manager->read($image->path());
+                $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
+
+                $img = $manager->read($image->path());
+                $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
                 // Zapisywanie ścieżki do bazy danych
                 $photo = new OfferPhoto();
@@ -157,9 +157,7 @@ class PanelOfferController extends Controller
 
         $offer = Offer::join('offers_translations', 'offers_translations.offers_id', '=', 'offers.id')
             ->where('offers_translations.locale', '=', 'pl')
-
             ->orderBy('offers_translations.name', 'asc')
-
             ->findOrFail($offer->id);
 
         $category = OfferCategory::all();
@@ -180,9 +178,6 @@ class PanelOfferController extends Controller
             return trim($value, "'");
         }, $enumValues);
 
-
-
-
         $tableName = 'offers_photo';
 
         return view('panel.offers.form', compact('offer', 'action', 'pages','category','localizationOptions'));
@@ -192,7 +187,6 @@ class PanelOfferController extends Controller
 
     public function update(Request $request, Offer $offer)
     {
-
 
         $request->except('_token');
         //  dd($request->all());
@@ -238,12 +232,12 @@ class PanelOfferController extends Controller
             'description',
         ]);
 
-      
 
         $offerTranslation->update($dataToUpdate);
 
         $pom = OfferPhoto::where('offers_id',  $offer->id)->count();
 
+        $manager = new ImageManager(new Driver());
         if ($request->hasfile('images')) {
             foreach ($request->file('images') as $image) {
                 $pom++;
@@ -256,22 +250,15 @@ class PanelOfferController extends Controller
                     File::makeDirectory($destinationPath, 0755, true, true);
                 }
 
+                // read image from filesystem
+                $img = $manager->read($image->path());
+                $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
 
-                $img = Image::make($image->path());
+                $img = $manager->read($image->path());
+                $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
 
-                $img->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save("{$destinationPath}/{$uniqueId}m.webp");
-
-                $img = Image::make($image->path());
-                $img->fit(350, 350)->encode('webp')->save("{$destinationPath}/{$uniqueId}kw.webp");
-
-                $img = Image::make($image->path());
-                $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('webp')->save("{$destinationPath}/{$uniqueId}d.webp");
-
+                $img = $manager->read($image->path());
+                $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
                 // Zapisywanie ścieżki do bazy danych
                 $photo = new OfferPhoto();

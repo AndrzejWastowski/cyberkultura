@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Gallery;
 use App\Models\GalleryCategory;
 use App\Models\Page;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\File;
 
 
 class PanelGalleryController extends Controller
@@ -61,6 +62,7 @@ class PanelGalleryController extends Controller
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
+        $manager = new ImageManager(new Driver());
         if($request->hasfile('images'))
         {
             foreach($request->file('images') as $image)
@@ -70,21 +72,23 @@ class PanelGalleryController extends Controller
                 // Miejsce docelowe
                 $destinationPath = public_path('/storage/gallery');
 
+                // Sprawdź, czy folder docelowy istnieje, a jeśli nie, utwórz go
+
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true, true);
+                }
+
+
                 // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-                $img = Image::make($image->path());
-                $img->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
+                $img = $manager->read($image->path());
+                $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
 
-                $img = Image::make($image->path());
-                $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
+                $img = $manager->read($image->path());
+                $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
 
-                $img = Image::make($image->path());
-                $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'd.webp');
+                $img = $manager->read($image->path());
+                $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
                 // Zapisywanie ścieżki do bazy danych
                 $gallery = new Gallery();
@@ -105,11 +109,11 @@ class PanelGalleryController extends Controller
         $photo_name = $photo->id.' ('.$photo->name.')';
         if ($photo) {
 
-            if(Storage::exists('public/gallery/'.$photo->name.'kw.webp'))
+            if(File::exists('public/gallery/'.$photo->name.'kw.webp'))
             {
-                Storage::delete('public/gallery/'.$photo->name.'kw.webp');
-                Storage::delete('public/gallery/'.$photo->name.'d.webp');
-                Storage::delete('public/gallery/'.$photo->name.'m.webp');
+                File::delete('public/gallery/'.$photo->name.'kw.webp');
+                File::delete('public/gallery/'.$photo->name.'d.webp');
+                File::delete('public/gallery/'.$photo->name.'m.webp');
             }
             // Usuń informacje o zdjęciach z bazy danych
             $photo->delete();

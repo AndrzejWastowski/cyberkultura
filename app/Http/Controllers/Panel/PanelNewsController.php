@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -128,6 +129,8 @@ class PanelNewsController extends Controller
         $news->news_category_id = $request->input('news_category_id');
         $news->save();
         $pom=0;
+
+        $manager = new ImageManager(new Driver());
         if($request->hasfile('images'))
         {
             foreach($request->file('images') as $image)
@@ -149,19 +152,15 @@ class PanelNewsController extends Controller
 
                 // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-                $img = Image::make($image->path());
-                $img->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
+                // read image from filesystem
+                $img = $manager->read($image->path());
+                $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
 
-                $img = Image::make($image->path());
-                $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
+                $img = $manager->read($image->path());
+                $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
 
-                $img = Image::make($image->path());
-                $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'd.webp');
+                $img = $manager->read($image->path());
+                $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
                 // Zapisywanie ścieżki do bazy danych
                 $photo = new NewsPhoto();
@@ -247,6 +246,7 @@ class PanelNewsController extends Controller
         }
 
         $pom = NewsPhoto::where('news_id', $news->id)->count();
+        $manager = new ImageManager(new Driver());
 
         if($request->hasfile('images'))
         {
@@ -258,9 +258,7 @@ class PanelNewsController extends Controller
                 // Miejsce docelowe
                 $destinationPath = public_path('/news/'.$news->id.'/gallery');
 
-
                 // Sprawdź, czy folder docelowy istnieje, a jeśli nie, utwórz go
-
 
                 if (!File::exists($destinationPath)) {
                     File::makeDirectory($destinationPath, 0755, true, true);
@@ -268,19 +266,14 @@ class PanelNewsController extends Controller
 
                 // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-                $img = Image::make($image->path());
-                $img->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
+                $img = $manager->read($image->path());
+                $img->scale(1920,1920)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'd.webp');
 
-                $img = Image::make($image->path());
-                $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
+                $img = $manager->read($image->path());
+                $img->scale(350,350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'm.webp');
 
-                $img = Image::make($image->path());
-                $img->resize(1980, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'd.webp');
+                $img = $manager->read($image->path());
+                $img->cover(350, 350)->toWebp(60)->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
                 // Zapisywanie ścieżki do bazy danych
                 $photo = new NewsPhoto();
