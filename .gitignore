@@ -4,6 +4,7 @@
 /public/hot
 /public/storage
 /public/resources/offers
+/public/pages
 /storage/*.key
 /vendor
 .env

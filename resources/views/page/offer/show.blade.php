@@ -147,7 +147,7 @@
                     @php
                         $patch = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'kw.webp';
                     @endphp
-                    @if ($photo->top) <img class="img-fluid  w-100"" src="{{ asset($patch) }}" alt="{{ $offer->translations[0]->name  }}"> @endif
+                    @if ($photo->top) <img class="img-fluid  w-100" src="{{ asset($patch) }}" alt="{{ $offer->translations[0]->name  }}"> @endif
                   @endforeach
                   </div>
                   <div class="col-md-7 mt-5 mt-lg-0">

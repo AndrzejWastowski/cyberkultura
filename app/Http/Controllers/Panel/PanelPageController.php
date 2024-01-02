@@ -55,7 +55,7 @@ class PanelPageController extends Controller
         return view('panel.pages.form',compact('page','action','pages'));
     }
 
-    public function store(Request $request)
+    public function store_(Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
@@ -68,19 +68,19 @@ class PanelPageController extends Controller
         $uniqueId = substr(md5(time().rand()), 0, 8);
         // Tworzenie unikalnej nazwy dla obrazu
         // Miejsce docelowe
-        $destinationPath = public_path('/storage/pages/images');
+        $destinationPath = public_path('/pages/images');
 
         // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-        $img = Image::make($request->file('images')->path());
+        $img = Image::make($request->file('image')->path());
         $img->resize(200, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
 
-        $img = Image::make($request->file('images')->path());
+        $img = Image::make($request->file('image')->path());
         $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
-        $img = Image::make($$request->file('images')->path());
+        $img = Image::make($$request->file('image')->path());
         $img->resize(1980, null, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
@@ -107,7 +107,6 @@ class PanelPageController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $validatedData = $request->validate([
             'title' => 'required',
             'link' => 'required',
@@ -122,23 +121,24 @@ class PanelPageController extends Controller
         $page->lead = $validatedData['lead'];
         $page->description = $validatedData['description'];
 
+
         if ($request->hasFile('image')) {
             $uniqueId = substr(md5(time().rand()), 0, 8);
         // Tworzenie unikalnej nazwy dla obrazu
         // Miejsce docelowe
-        $destinationPath = public_path('/storage/pages/images');
+        $destinationPath = public_path('/pages/images');
 
         // Przetwarzanie i zapisywanie obrazu (tak jak wcześniej)
 
-        $img = Image::make($request->file('images')->path());
-        $img->resize(200, null, function ($constraint) {
+        $img = Image::make($request->file('image')->path());
+        $img->resize(350, null, function ($constraint) {
                     $constraint->aspectRatio();
                 })->encode('webp')->save($destinationPath.'/'.$uniqueId. 'm.webp');
 
-        $img = Image::make($request->file('images')->path());
+        $img = Image::make($request->file('image')->path());
         $img->fit(350, 350)->encode('webp')->save($destinationPath.'/'.$uniqueId. 'kw.webp');
 
-        $img = Image::make($$request->file('images')->path());
+        $img = Image::make($request->file('image')->path());
         $img->resize(1980, null, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();

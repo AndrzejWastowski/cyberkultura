@@ -11,8 +11,18 @@
     </nav>
   </div><!-- End Page Title -->
 
+  @if ($errors->any())
+    <div class="alert alert-danger mt-2">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="container">
-        <form id="myForm" action="{{ $action == 'create' ? route('panel.pages.store') : route('panel.pages.update', $page)}}" method="POST">
+        <form id="myForm" action="{{ $action == 'create' ? route('panel.pages.store') : route('panel.pages.update', $page)}}" method="POST"  enctype="multipart/form-data">
+
             @csrf
             @if($action == 'edit')
             @method('PUT')
@@ -55,11 +65,11 @@
                 </div>
                 <div class="form-group">
                     <label for="pages_photo">Zdjęcie poglądowe do podstrony:</label>
-                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    <input type="file" class="form-control" id="image" name="image" accept="image/png, image/gif, image/jpeg, image/png, image/gif, image/webp">
                 </div>
                 <div class="form-group">
                     <label for="current_photo">Aktualne zdjęcie:</label>
-                    <img src="/resources/subpage/{{ $page->image }}" alt="{{ $page->image }}" class="img-fluid">
+                    <img src="{{ asset('/pages/images/'.$page->image.'m.webp') }}" alt="{{ $page->image }}" class="img-fluid">
                 </div>
             </div>
 
