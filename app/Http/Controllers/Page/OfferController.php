@@ -23,7 +23,7 @@ class OfferController extends Controller
         return view('page.offer.index', compact('offers','path_m'));
     }
 
- 
+
     /**
      * Display the specified resource.
      */
@@ -51,8 +51,6 @@ class OfferController extends Controller
                 ->groupBy('rating')
                 ->orderBy('rating','desc')
                 ->get();
-
-           
 
                 $totalComments = $comments->sum('total') ;
                 $ratings = [];

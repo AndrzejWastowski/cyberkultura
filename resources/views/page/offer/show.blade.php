@@ -40,21 +40,29 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 col-12 order-lg-1">
+
+       
           <ul id="imageGallery">
 @php
   $path_m  = 'resources/offers/cyberkultura_oferta.webp';
+  $counter = 0;
 @endphp
             @foreach ($offer->photo as $photo)
 
                 @php
-                    $patch_kw = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'kw.webp';
-                    $patch_m = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'m.webp';
-                    $patch_d = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'d.webp';
+                  $counter++;
+                  $patch_kw = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'kw.webp';
+                  $patch_m = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'m.webp';
+                  $patch_d = 'resources/offers/'.$offer->id.'/gallery/'.$photo->name.'d.webp';
                 @endphp
 
                 <li data-thumb="{{ asset($patch_kw) }}" data-src="{{ asset($patch_kw) }}">
-                    <img class="img-fluid w-100" src="{{ asset($patch_d) }}" alt="" />
+                    <img class="img-fluid w-100" src="{{ asset($patch_d) }}" alt="{{ $offer->translations[0]->name }}" />
                   </li>
+
+                  @if ($counter == 3)
+                  @break
+            @endif
 
 
         @endforeach
